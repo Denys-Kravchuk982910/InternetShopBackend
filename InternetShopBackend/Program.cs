@@ -4,6 +4,7 @@ using InternetShopBackend.Data;
 using InternetShopBackend.Mappers;
 using InternetShopBackend.Modals;
 using InternetShopBackend.Validators;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -34,6 +35,7 @@ builder.Services.AddSwaggerGen((SwaggerGenOptions opts) =>
 
 });
 
+builder.Services.AddCors();
 
 
 #region Validators
@@ -66,6 +68,10 @@ builder.Services.AddDbContext<EFContext>(opts =>
 
 var app = builder.Build();
 
+
+app.UseCors((CorsPolicyBuilder builder) => {
+    builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+});
 
 // Configure the HTTP request pipeline.
 

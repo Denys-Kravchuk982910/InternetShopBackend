@@ -4,7 +4,6 @@ namespace InternetShopBackend.Services
 {
     public static class ImageWorker
     {
-
         public static Bitmap ConvertToImage(string image)
         {
             byte[] bytes = Convert.FromBase64String(image);

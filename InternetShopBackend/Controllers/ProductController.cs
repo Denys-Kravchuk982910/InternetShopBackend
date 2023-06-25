@@ -33,7 +33,7 @@ namespace InternetShopBackend.Controllers
                 try
                 {
                     AppProduct product = this._mapper.Map<AppProduct>(addProduct);
-
+                    product.Rating = 0;
                     _context.Products.Add(product);
                     _context.SaveChanges();
                     res = Ok(new{

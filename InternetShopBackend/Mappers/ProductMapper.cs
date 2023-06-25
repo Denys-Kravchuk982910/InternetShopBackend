@@ -27,6 +27,7 @@ namespace InternetShopBackend.Mappers
                 .ForMember(x => x.Price, y => y.MapFrom(a => a.Price))
                 .ForMember(x => x.Count, y => y.MapFrom(a => a.Count))
                 .ForMember(x => x.Description, y => y.MapFrom(a => a.Description))
+                .ForMember(x => x.Rating, y => y.MapFrom(a => a.Rating))
                 .ForMember(x => x.Id, y => y.MapFrom(a => a.Id));
 
          
