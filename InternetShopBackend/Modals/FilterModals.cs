@@ -17,4 +17,15 @@
         public string Title { get; set; }
         public int? ParentId { get; set; }
     }
+
+    public class GetFilter
+    {
+        public int ParentId { get; set; }
+    }
+
+    public class GetByFilter
+    {
+        public int skipped { get; set; }
+        public int[] keys { get; set; }
+    }
 }

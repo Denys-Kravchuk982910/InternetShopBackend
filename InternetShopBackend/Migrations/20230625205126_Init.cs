@@ -35,7 +35,7 @@ namespace InternetShopBackend.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    ParentId = table.Column<int>(type: "integer", nullable: false)
+                    ParentId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,7 +70,9 @@ namespace InternetShopBackend.Migrations
                     Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Count = table.Column<int>(type: "integer", nullable: false)
+                    Count = table.Column<int>(type: "integer", nullable: false),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    Brand = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,6 +91,30 @@ namespace InternetShopBackend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tblStories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FilterProducts",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    FilterId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FilterProducts", x => new { x.ProductId, x.FilterId });
+                    table.ForeignKey(
+                        name: "FK_FilterProducts_tblFilters_FilterId",
+                        column: x => x.FilterId,
+                        principalTable: "tblFilters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FilterProducts_tblProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "tblProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,6 +138,11 @@ namespace InternetShopBackend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_FilterProducts_FilterId",
+                table: "FilterProducts",
+                column: "FilterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tblFilters_ParentId",
                 table: "tblFilters",
                 column: "ParentId");
@@ -126,10 +157,10 @@ namespace InternetShopBackend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "tblFeedbacks");
+                name: "FilterProducts");
 
             migrationBuilder.DropTable(
-                name: "tblFilters");
+                name: "tblFeedbacks");
 
             migrationBuilder.DropTable(
                 name: "tblPosts");
@@ -139,6 +170,9 @@ namespace InternetShopBackend.Migrations
 
             migrationBuilder.DropTable(
                 name: "tblStories");
+
+            migrationBuilder.DropTable(
+                name: "tblFilters");
 
             migrationBuilder.DropTable(
                 name: "tblProducts");

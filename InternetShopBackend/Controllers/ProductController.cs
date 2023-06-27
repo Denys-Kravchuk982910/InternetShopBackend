@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace InternetShopBackend.Controllers
 {
@@ -68,7 +69,7 @@ namespace InternetShopBackend.Controllers
 
                     var prodImage = new AppProductImage
                     {
-                        Image = filePath,
+                        Image = name,
                         ProductId = productImage.ProductId
                     };
 
@@ -212,7 +213,7 @@ namespace InternetShopBackend.Controllers
 
         [HttpGet]
         [Route("get")]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts([FromQuery] int skipped)
         {
             return await Task.Run(() =>
             {
@@ -226,13 +227,17 @@ namespace InternetShopBackend.Controllers
                         Price = x.Price,
                         Description = x.Description,
                         Count = x.Count,
+                        Rating = x.Rating,
+                        Brand = x.Brand,
                         Images = x.ProductImages.Select(y => new
                         {
                             Image = y.Image,
                             Id = y.Id,
                             ProductId = y.ProductId
-                        })
-                    });
+                        }).ToList()
+                    }).OrderByDescending(x => x.Id)
+                    .Skip(12 * skipped).Take(12).ToList();
+                    
 
                     res = Ok(products);
                 }
@@ -243,6 +248,134 @@ namespace InternetShopBackend.Controllers
                 
                 
                 return res;
+            });
+        }
+
+        [HttpPost]
+        [Route("getbyfilter")]
+        public async Task<IActionResult> GetProductsByFilter([FromBody] GetByFilter filters)
+        {
+            return await Task.Run(() =>
+            {
+                IActionResult res = null;
+                try
+                {
+                    if (filters.keys.Length > 0)
+                    {
+                        var query = _context.Filters.Include(x => x.FilterProducts)
+                        .Where(x => filters.keys.Contains(x.Id))
+                        .SelectMany(x => x.FilterProducts.Select(y => y.ProductId))
+                        .Select(x => _context.Products.Include(q => q.ProductImages)
+                        .First(y => y.Id == x)).ToList();
+
+
+                        var filtered = query.Select(x => new
+                        {
+                            Id = x.Id,
+                            Title = x.Title,
+                            Price = x.Price,
+                            Description = x.Description,
+                            Count = x.Count,
+                            Rating = x.Rating,
+                            Brand = x.Brand,
+                            Images = x.ProductImages.Select(y => new
+                            {
+                                Image = y.Image,
+                                Id = y.Id,
+                                ProductId = y.ProductId
+                            }).ToList()
+                        }).DistinctBy(x => x.Id)
+                        .OrderByDescending(x => x.Id)
+                        .Skip(12 * filters.skipped).Take(12).ToList();
+
+                        return Ok(filtered);
+                    }
+                    var products = _context.Products.Include(x => x.ProductImages).Select(x => new
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        Price = x.Price,
+                        Description = x.Description,
+                        Count = x.Count,
+                        Rating = x.Rating,
+                        Brand = x.Brand,
+                        Images = x.ProductImages.Select(y => new
+                        {
+                            Image = y.Image,
+                            Id = y.Id,
+                            ProductId = y.ProductId
+                        }).ToList()
+                    }).OrderByDescending(x => x.Id)
+                    .Skip(12 * filters.skipped).Take(12).ToList();
+
+
+                    res = Ok(products);
+                }
+                catch (Exception ex)
+                {
+                    res = BadRequest(ex);
+                }
+
+
+                return res;
+            });
+        }
+
+        [HttpGet]
+        [Route("count")]
+        public async Task<IActionResult> GetCount()
+        {
+            return await Task.Run(() =>
+            {
+                return Ok(_context.Products.Count());
+            });
+        }
+
+        [HttpPost]
+        [Route("countbyfilter")]
+        public async Task<IActionResult> GetCountByFilter([FromBody] GetByFilter filters)
+        {
+            return await Task.Run(() =>
+            {
+                if (filters.keys.Length > 0)
+                {
+                    var query = _context.Filters.Include(x => x.FilterProducts)
+                    .Where(x => filters.keys.Contains(x.Id))
+                    .SelectMany(x => x.FilterProducts.Select(y => y.ProductId))
+                    .Select(x => _context.Products.Include(q => q.ProductImages)
+                    .First(y => y.Id == x)).ToList();
+
+                    return Ok(query.Count);
+                }
+                return Ok(_context.Products.Count());
+            });
+        }
+
+        [HttpGet]
+        [Route("gettop")]
+        public async Task<IActionResult> GetTopProducts()
+        {
+            return await Task.Run(() =>
+            {
+                return Ok(_context.Products
+                    .Select(x => x).Include(x => x.ProductImages).OrderByDescending(x => x.Id)
+                    .Take(5).ToList()
+                    .Select(x => new
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        Price = x.Price,
+                        Description = x.Description,
+                        Count = x.Count,
+                        Rating = x.Rating,
+                        Brand = x.Brand,
+                        Images = x.ProductImages.Select(y => new
+                        {
+                            Image = y.Image,
+                            Id = y.Id,
+                            ProductId = y.ProductId
+                        }).ToList()
+                    }));
             });
         }
     }

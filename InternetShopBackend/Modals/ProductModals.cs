@@ -6,6 +6,7 @@
         public double Price { get; set; }
         public string Description { get; set; }
         public int Count { get; set; }
+        public string Brand { get; set; }
     }
 
     public class EditProduct
@@ -14,6 +15,7 @@
         public string Title { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
+        public string Brand { get; set; }
         public int Count { get; set; }
     }
 
@@ -29,6 +31,7 @@
         public double Price { get; set; }
         public string Description { get; set; }
         public int Count { get; set; }
+        public string Brand { get; set; }
         public int Rating { get; set; }
     }
 
@@ -52,5 +55,10 @@
     public class GetProduct
     {
         public int Id { get; set; }
+    }
+
+    public class PageProduct
+    {
+        public int skipped { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace InternetShopBackend.Data.Configuration
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Title).IsRequired().HasMaxLength(255);
-
+            builder.Property(x => x.ParentId).HasDefaultValue(null);
             builder.HasOne(x => x.Parent)
                 .WithMany(y => y.Children)
                 .HasForeignKey(x => x.ParentId);

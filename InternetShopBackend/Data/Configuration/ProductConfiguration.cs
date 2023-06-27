@@ -20,6 +20,13 @@ namespace InternetShopBackend.Data.Configuration
 
             builder.Property(x => x.Count)
                 .IsRequired();
+
+            builder.Property(x => x.Rating)
+                .IsRequired();
+
+            builder.Property(x => x.Brand)
+                .IsRequired()
+                .HasMaxLength(255);
         }
     }
 }
