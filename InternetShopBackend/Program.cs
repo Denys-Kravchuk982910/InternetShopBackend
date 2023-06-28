@@ -70,7 +70,8 @@ var app = builder.Build();
 
 
 app.UseCors((CorsPolicyBuilder builder) => {
-    builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+    builder
+    .AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
 });
 
 // Configure the HTTP request pipeline.

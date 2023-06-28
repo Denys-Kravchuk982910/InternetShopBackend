@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace InternetShopBackend.Controllers
 {
@@ -262,14 +265,61 @@ namespace InternetShopBackend.Controllers
                 {
                     if (filters.keys.Length > 0)
                     {
+
+                        //var predicate = CollectionService.False<AppProduct>();
+                        //for (int i = 0; i < filters.keys.Length; i++)
+                        //{
+                        //    predicate = predicate.Or(x => x.FilterProducts
+                        //    .FirstOrDefault(y => y.) != null);
+                        //}
+
+
+
                         var query = _context.Filters.Include(x => x.FilterProducts)
-                        .Where(x => filters.keys.Contains(x.Id))
-                        .SelectMany(x => x.FilterProducts.Select(y => y.ProductId))
-                        .Select(x => _context.Products.Include(q => q.ProductImages)
-                        .First(y => y.Id == x)).ToList();
+                            .Where(x => filters.keys.Contains(x.Id))
+                            .GroupBy(x => x.ParentId).ToList();
+                        //.SelectMany(x => x.FilterProducts.Select(y => y.ProductId))
+                        //.Select(x => _context.Products.Include(q => q.ProductImages)
+                        //    .FirstOrDefault(y => y.Id == x))
+                        //    .ToList();
+
+                        bool flag = false;
+                        
+
+                        //_context.FilterProducts
+                        //        .Include(x => x.Product)
+                        //        .Where(x => x.FilterId == it.Id)
+                        //        .Select(x => x.Product)
+                        //        .AsQueryable()
+                        IQueryable<AppProduct> productsQuery = _context.Products.Include(x => x.FilterProducts)
+                                    .Include(x => x.ProductImages)
+                                    .Select(x => x).AsQueryable();
+                        foreach (var group in query)
+                        {
+                            List<IQueryable<AppProduct>> productItems = new List<IQueryable<AppProduct>>();
+                            foreach (var it in group)
+                            {
+                                var testItem = productsQuery.Include(x => x.FilterProducts)
+                                    .Include(x => x.ProductImages)
+                                .Where(x => x.FilterProducts
+                                .FirstOrDefault(y => y.FilterId == it.Id) != null);
+                                
+                                if (testItem.Count() > 0)
+                                {
+                                    productItems.Add(testItem);
+                                }
+                            }
+
+                            productsQuery = productItems.SelectMany(x => x).Select(x => x).AsQueryable();
+
+                        }
 
 
-                        var filtered = query.Select(x => new
+                        var productArray = productsQuery
+                        .Select(x => x).ToList();
+
+
+                        var filtered = productArray.Select(x => new
                         {
                             Id = x.Id,
                             Title = x.Title,
