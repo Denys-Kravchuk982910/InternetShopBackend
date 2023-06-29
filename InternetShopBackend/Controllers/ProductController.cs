@@ -254,6 +254,31 @@ namespace InternetShopBackend.Controllers
             });
         }
 
+        [HttpGet]
+        [Route("getbyid")]
+        public async Task<IActionResult> GetProduct([FromQuery] int id)
+        {
+            return await Task.Run(() =>
+            {
+                return Ok(_context.Products.Include(x => x.ProductImages).Select(x => new
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Price = x.Price,
+                    Description = x.Description,
+                    Count = x.Count,
+                    Rating = x.Rating,
+                    Brand = x.Brand,
+                    Images = x.ProductImages.Select(y => new
+                    {
+                        Image = y.Image,
+                        Id = y.Id,
+                        ProductId = y.ProductId
+                    }).ToList()
+                }).First(x => x.Id == id));
+            });
+        }
+
         [HttpPost]
         [Route("getbyfilter")]
         public async Task<IActionResult> GetProductsByFilter([FromBody] GetByFilter filters)
@@ -265,16 +290,6 @@ namespace InternetShopBackend.Controllers
                 {
                     if (filters.keys.Length > 0)
                     {
-
-                        //var predicate = CollectionService.False<AppProduct>();
-                        //for (int i = 0; i < filters.keys.Length; i++)
-                        //{
-                        //    predicate = predicate.Or(x => x.FilterProducts
-                        //    .FirstOrDefault(y => y.) != null);
-                        //}
-
-
-
                         var query = _context.Filters.Include(x => x.FilterProducts)
                             .Where(x => filters.keys.Contains(x.Id))
                             .GroupBy(x => x.ParentId).ToList();
@@ -285,12 +300,6 @@ namespace InternetShopBackend.Controllers
 
                         bool flag = false;
                         
-
-                        //_context.FilterProducts
-                        //        .Include(x => x.Product)
-                        //        .Where(x => x.FilterId == it.Id)
-                        //        .Select(x => x.Product)
-                        //        .AsQueryable()
                         IQueryable<AppProduct> productsQuery = _context.Products.Include(x => x.FilterProducts)
                                     .Include(x => x.ProductImages)
                                     .Select(x => x).AsQueryable();
