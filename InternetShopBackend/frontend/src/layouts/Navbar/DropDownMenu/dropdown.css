@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300&display=swap');
+
+
+.dropdown-nav {
+    position:fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: calc(var(100%) - var(70px));
+    z-index: 1000;
+    background-color: rgba(85, 83, 83, 0.718);
+    margin-top: 70px;
+}
+
+
+.container-text-expand {
+    margin-top: 2em;
+    display: block;
+    width: 100%;
+    color: #fff;
+    font-size: 18px;
+    font-family: 'Source Code Pro', monospace;
+    text-align: center;
+}
+
+.container-text-expand > span {
+    border-bottom: 1px solid #fff;
+}

@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300&display=swap');
+
+.row-footer {
+    padding-left: 150px;
+    padding-right: 50px;
+    position: relative;
+    top: 50%;
+}
+
+
+@media (max-width: 1000px) {
+    .row-footer {
+        padding-left: 0;
+        padding-right: 0%;
+        position: relative;
+        margin: auto;
+        top: 50%;
+    }
+
+    .separator {
+        margin-right: 0px;
+    }
+
+    .blog-icon {
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .blog-icon span {
+        display: none;
+    }
+}
+
+
+
+
+.c-footer {
+    width: 100%;
+    background-color: #1d1d1b;
+    color: #ffffff;
+    height: auto;
+}
+
+.footer-column {
+    padding:15px;
+    margin: auto;
+    width: 100%;
+}
+
+.container-number {
+
+    width: 100%;
+    font-size: 3em;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.container-email {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 25px;
+    width: 100%;
+    text-align: left;
+    margin-top: 30px;
+}
+
+
+.inst-profile{
+    font-size: 1.5em;
+    font-family: 'Source Code Pro', monospace;
+    text-align: center;
+}
+
+
+.card{
+    background-color: #1d1d1b;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+}
+.container {
+    display: flex;
+    align-items: center;
+}
+.profile-name{
+    text-align: center;
+    font-family: 'Source Code Pro', monospace;
+
+}
+
+p.profile-body {
+    font-family: 'Source Code Pro', monospace;
+}
+
+hr {
+    border-top: 1px solid #ffffff;
+    margin-right: 100px;
+}
+
+.blog-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 15px 0;
+
+}
+
+
+.blog-icon svg {
+    width: 1em;
+    font-size: 36px;
+    fill: silver;
+}
+
+
+.blog-icon span {
+    position: relative;
+    font-family: 'Source Code Pro', monospace;
+    
+    left: 5%;
+    color: silver;
+    width: auto;
+}
+
+
+@media (max-width: 1300) {
+    
+}
+
+
+.blog-icon:hover svg
+{
+    fill:#13699e;
+    transition: color 0.3s ease;
+}
+
+.blog-icon:hover span
+{
+    color:#13699e;
+    transition: color 0.3s ease;
+
+}
+
+.social-networks-nav {
+    margin: 10px;
+}

@@ -1,0 +1,50 @@
+.hamburger-icon {
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    color: aliceblue;
+  }
+
+.icon-right {
+    position: absolute;
+    right: 0;
+}
+
+.underlie {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+    margin-top: 5px;
+    transition:transform 0.3s ease;
+
+}
+
+.hamburger-inner {
+    position: absolute;
+    right: 0;
+    width: 20px;
+}
+
+.top-item-nav {
+    transition:transform 0.3s ease;
+    transform: translateY(7px) rotate(45deg);
+}
+
+.second-item-nav {
+    transition:transform 0.3s ease;
+    transform: rotate(-45deg) ;
+}
+
+.third-item-nav {
+    display: none;
+}
+
+.hamburger-inner-click {
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(25%);
+    right: 0;
+}

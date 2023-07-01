@@ -1,0 +1,92 @@
+.cus-modal {
+    background-color: rgba(62, 59, 59, 0.373);
+    position: fixed;
+    width:100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.cus-modal-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 90vh;
+    width: 60vw;
+    background-color: transparent;
+    border-radius: 20px;
+}
+.cus-modal-container img {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+@media (max-width: 1000px) {
+    .cus-modal-container {
+        width: 100%;
+    }
+
+    .cus-modal-container img {
+        width: 60%;
+        height: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    .cus-modal-container {
+        width: 100%;
+    }
+
+    .cus-modal-container img {
+        width: 80%;
+        height: 100%;
+    }
+}
+
+
+
+.directionArrows {
+    position: absolute;
+    width:100%;
+    height: 100%;
+    top:  45vh;
+    z-index: 101;
+}
+
+.leftArrow {
+    position: absolute;
+    color: white;
+    left: 0;
+}
+
+.rightArrow {
+    position: absolute;
+    color: white;
+
+    left: calc(100% - 30px);
+}
+
+
+.progress-bar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 4px;
+    border: 1px solid #d4cece;
+    background-color: #d4cece;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #646060;
+    width: 0;
+    transition: width 0.1s ease;
+  }

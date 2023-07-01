@@ -56,3 +56,10 @@ D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\runtimes
 D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\AutoMapper.dll
 D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\frontend\build\asset-manifest.json
+D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\frontend\package-lock.json
+D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\frontend\package.json
+D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\TLSharp\ASD\InternetShopBackend\InternetShopBackend\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

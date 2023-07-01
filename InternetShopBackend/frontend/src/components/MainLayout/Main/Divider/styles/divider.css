@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300&display=swap');
+
+.divider-container {
+    padding: 100px;
+}
+
+.lines {
+    width: 100%;
+    height: 45px;
+    position: relative;
+    text-align: center;
+}
+
+.lines::after, .lines::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    height: 2px;
+    background: black;
+    max-width: 45%;
+    width: 40%;
+    top:70%;
+}
+
+.lines::after {
+    left: 0;
+}
+
+.lines::before {
+    right: 0;
+}
+
+.circle {
+    position: absolute;
+    margin: auto;
+}
+
+.circle span {
+    font-weight: 1200;
+    font-size: 36px;
+    font-family: 'Source Code Pro', monospace;
+}
+
+
+@media (max-width: 576px) {
+    .lines {
+        width: 100%;
+        height: 45px;
+        position: relative;
+        text-align: center;
+    }
+
+    .divider-container {
+        padding: 10px;
+    }
+    
+    .lines::after, .lines::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        height: 2px;
+        background: black;
+        max-width: 0%;
+        width: 0;
+        top:70%;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 577px) {
+    .lines {
+        width: 100%;
+        height: 45px;
+        position: relative;
+        text-align: center;
+    }
+
+    .divider-container {
+        padding: 30px;
+    }
+    
+    .lines::after, .lines::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        height: 2px;
+        background: black;
+        max-width: 25%;
+        width: 20%;
+        top:70%;
+    }
+}
+
+@media (max-width: 992px) and (min-width: 769px) {
+    .lines {
+        width: 100%;
+        height: 45px;
+        position: relative;
+        text-align: center;
+    }
+
+    .divider-container {
+        padding: 50px;
+    }
+    
+    .lines::after, .lines::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        height: 2px;
+        background: black;
+        max-width: 25%;
+        width: 25%;
+        top:70%;
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 993px) {
+    .lines {
+        width: 100%;
+        height: 45px;
+        position: relative;
+        text-align: center;
+    }
+    
+    .lines::after, .lines::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        height: 2px;
+        background: black;
+        max-width: 35%;
+        width: 35%;
+        top:70%;
+    }
+}
+
+@media (max-width: 1600px) and (min-width: 1201px) {
+   
+}
+
+@media (max-width: 1300px) and (min-width: 1201px) {
+    
+}
+
+@media (min-width: 1601px) {
+      
+}

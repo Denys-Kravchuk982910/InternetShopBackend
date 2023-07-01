@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300&display=swap');
+
+
+.filter {
+    margin-top: 100px;
+    overflow: auto;
+    direction: rtl;
+    min-height: 800px;
+}
+
+
+.open-mobile {
+  opacity: 0;
+}
+
+.filter::-webkit-scrollbar {
+  width: 0px; /* Change the background color */
+  height: 0px;
+}
+
+.filter::-webkit-scrollbar-thumb {
+  background-color: silver;
+  border-radius: 15px;
+}
+
+
+@media (max-width: 992px) {
+  .filter {
+    margin-top: 10px;
+  }
+}
+
+.list-parent {
+    font-size: 24px;
+    font-family: 'Source Code Pro', monospace;
+    opacity: 1;
+
+}
+
+.filter-container {
+    margin-top: 2em;
+}
+
+.list-parent:hover 
+{
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.ch-group {
+    margin-top: 1em;
+}
+
+.ch-group * {
+    direction: ltr;
+    width: auto;
+}
+
+.container-check {
+    display: block;
+    width: 100%;
+}
+
+.ch-group div {
+    margin-left: 5%;
+}
+
+
+/* Custom Buttom start */
+
+/* CSS */
+.button-49 {
+    appearance: none;
+    background-color: #FFFFFF;
+    border-width: 0;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Clarkson,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1em;
+    margin-top: 5em;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    opacity: 1;
+    outline: 0;
+    padding: 1.5em 2.2em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-rendering: geometricprecision;
+    text-transform: uppercase;
+    transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1),background-color 100ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+    font-family: 'Source Code Pro', monospace;
+    border: 1px solid black;
+  }
+  
+  .button-49:before {
+    animation: opacityFallbackOut .5s step-end forwards;
+    backface-visibility: hidden;
+    background-color: #EBEBEB;
+    clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+    content: "";
+    color: #000000;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateZ(0);
+    transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+    width: 100%;
+  }
+  
+  .button-49:hover:before {
+    animation: opacityFallbackIn 0s step-start forwards;
+    clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+  }
+  
+  .button-49:after {
+    color: #000000;
+    background-color: #FFFFFF;
+  }
+  
+  .button-49 span {
+    z-index: 1;
+    color: #000000;
+    position: relative;
+  }
+
+/* Custom button end */

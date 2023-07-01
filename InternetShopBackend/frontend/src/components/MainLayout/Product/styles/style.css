@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;300&display=swap');
+
+#prodetails{
+    display: block;
+    margin-top: 20px;
+    height: 100%;
+    width: 100%;
+
+}
+.container{
+    margin-top: 20px;
+}
+
+
+.small-img-group{
+    display: flex;
+    justify-content: space-between;
+}
+.small-img-col{
+    margin-top: 5px;
+    flex-basis: 32%;
+    cursor: pointer;
+    padding: 5px;
+}
+h6{
+    font-size: 14px;
+    font-family: 'Source Code Pro', monospace;
+
+}
+
+.single-pro-details h4{
+    padding: 40px 0 20px 0;
+    font-family: 'Source Code Pro', monospace;
+
+}
+
+.single-pro-details h2{
+    font-size: 26px;
+    
+
+}
+.single-pro-details select {
+    display: block;
+    padding: 5px 10px ;
+    margin-bottom: 5px;
+    width: 50%;
+    font-family: 'Source Code Pro', monospace;
+
+}
+.single-pro-details input{
+    width: 50%;
+    height: 30px;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    font-family: 'Source Code Pro', monospace;
+
+}
+
+.alert-image {
+    width: 50%;
+   }
+
+
+@media (max-width: 1200px) {
+    .alert-image {
+        width: 100%;
+       }
+    .single-pro-details select {
+        width: 100%;
+    
+    }
+    .single-pro-details input{
+        width: 100%;
+    
+    }   
+
+    .button-cart-product {
+        width: 100% !important;
+    }
+
+    .button-buy-product {
+        width: 100% !important;
+    }
+
+    #MainImg {
+        height: 70vh;
+        width: auto;
+    }
+
+    .image-product-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+}
+
+
+.single-pro-details input:focus{
+    outline: none;
+}
+
+.single-pro-details span{
+    line-height: 25px;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 700;
+}
+
+
+
+#prodetails{
+    display: flex;
+    flex-direction: column;
+}
+.single-pro-image{
+    width: 100%;
+    margin-right: 0px;
+}
+.single-pro-details{
+    width: 100%;
+}
+
+.button-cart-product {
+    margin-bottom: 5px;
+    
+    padding: 5px;
+    border: unset;
+    height: 30px;
+    color: white;
+    z-index: 1;
+    background: #212121;
+    position: relative;
+    overflow: hidden;
+    font-size: 10px;
+    letter-spacing: 1px;
+    transition:  opacity 2s ease, all 0.5s ease;
+    overflow: hidden;
+    width: 50%;
+
+  }
+  
+  .button-cart-product::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border: black 1px solid;
+    background-color: rgb(255,255,255);
+    z-index: -1;
+    transition:  opacity 2s ease, all 0.5s ease;
+    
+  }
+  
+  .button-cart-product:hover {
+    color: #212121;
+  
+  }
+  
+  .button-cart-product:hover::before {
+    width: 100%;
+  }
+  
+  /* BUTTON BUY */
+  
+  
+  .button-buy-product {
+    margin-bottom: 5px;
+    font-weight: 500;
+    padding: 5px;
+    border: black 1px solid;
+    height: 30px;
+    color: #212121;
+    z-index: 1;
+    background: rgb(255,255,255);
+    position: relative;
+    letter-spacing: 1px;
+    font-size: 10px;
+    overflow: hidden;
+    transition: all 250ms;
+    overflow: hidden;
+   
+    transition:  opacity 2s ease, all 0.5s ease;
+    width: 50%;
+   }
+   
+   .button-buy-product::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    transition:  opacity 2s ease, all 0.5s ease;
+    background-color: #212121;
+    z-index: -1;
+   
+    
+   }
+   
+   .button-buy-product:hover {
+    color: #e8e8e8;
+   }
+   
+   .button-buy-product:hover::before {
+    width: 100%;
+   }
+
+
+   #product1 {
+    cursor: pointer;
+   }

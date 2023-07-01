@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using InternetShopBackend.Data;
 using InternetShopBackend.Mappers;
 using InternetShopBackend.Modals;
+using InternetShopBackend.Services;
 using InternetShopBackend.Validators;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -92,5 +93,5 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
     RequestPath = "/images"
 }) ;
-
+//app.SeedFilter();
 app.Run();

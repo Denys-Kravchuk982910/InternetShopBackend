@@ -7,6 +7,8 @@ namespace InternetShopBackend.Services
 {
     public static class CollectionService
     {
+
+
         public static Expression<Func<T, bool>> True<T>() { return param => true; }
 
         /// <summary>    

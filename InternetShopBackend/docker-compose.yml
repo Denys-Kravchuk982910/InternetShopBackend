@@ -1,0 +1,55 @@
+version: '3'
+
+networks:
+  mynetwork:
+    driver: bridge
+
+services:
+  backend:
+    image: docker.io/library/backendshop
+    depends_on:
+      - postgresdb
+    container_name: backendshop-container
+    ports:
+      - 5001:80
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=User Id=postgres;Password=1;Server=postgresdb;Port=5432;Database=postgres; IntegratedSecurity=true;Pooling=true;
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - mynetwork
+    volumes:
+      - images:/app/Images
+
+  postgresdb:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      - POSTGRES_PASSWORD=1
+    ports:
+      - "5002:5432"
+    restart: always
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+  frontend: 
+    image: docker.io/library/frontend
+    container_name: frontend-container
+    ports:
+      - 5003:3000
+    build:
+      context: /frontend
+      dockerfile: Dockerfile
+    networks:
+      - mynetwork
+    
+
+volumes:
+  images:
+  dbdata:
+
+
