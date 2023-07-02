@@ -40,6 +40,11 @@ class AxiosService {
         let result = await axios.get(BACKEND_URL + "api/product/getbyid?id=" + id);
         return result.data;
     }
+
+    pushOrder = async (values) => {
+        let result = await axios.post(BACKEND_URL + "api/order/push", values);
+        return result.data;
+    }
 }
 
 

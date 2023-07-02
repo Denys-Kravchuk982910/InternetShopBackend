@@ -13,6 +13,7 @@ namespace InternetShopBackend.Data
         public DbSet<AppPost> Posts { get; set; }
         public DbSet<AppProductImage> ProductImages { get; set; }
         public DbSet<AppFilterProduct> FilterProducts { get; set; }
+        public DbSet<AppOrder> Orders { get; set; }
         public EFContext(DbContextOptions opts) : base(opts)
         {
 
@@ -28,6 +29,7 @@ namespace InternetShopBackend.Data
             modelBuilder.ApplyConfiguration(new StoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new FilterProductConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
         }
     }
 }

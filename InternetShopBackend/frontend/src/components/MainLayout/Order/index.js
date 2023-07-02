@@ -10,12 +10,18 @@ import './Validation/styles/valid.css';
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import axiosService from "../../../axios/axiosService";
 const Order = () => {
 
     const [visible, setVisible] = useState(true);
+    const [orderId, setOrderId] = useState(0);
+    const pushOrder = async (values) => {
+        let res = await axiosService.pushOrder(values);
+        setOrderId(res.id);
+    }
 
     const onSubmitHandler = (values) => {
-        console.log(values);
+        pushOrder(values);
         setVisible(false);
         window.scrollTo(0,0);
 
@@ -142,7 +148,7 @@ sum += el.price;
             </>
             : <div id="success-payment" className="success-payment">
                     <h2>Оформлення успішне!</h2>
-                    <h3>Номер замовлення: 1234234</h3>
+                    <h3>Номер замовлення: {orderId}</h3>
                     <Link to="/">На головну</Link>
                 </div>}
 

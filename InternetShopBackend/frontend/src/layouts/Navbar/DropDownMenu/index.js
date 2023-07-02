@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import './dropdown.css';
 import { useContext } from 'react';
 
-const DropDownMenu = ({setOpen}) => {
+const DropDownMenu = ({setOpen, onCart}) => {
     const navigation = useNavigate();
 
     const navigateToMenu = () => {
@@ -45,7 +45,7 @@ const DropDownMenu = ({setOpen}) => {
             <span
                 onClick={() => {
                     navigateToMenu();
-                    navigation("/blog");
+                    onCart(true);
                 }}
             >Корзина</span>
         </div>
@@ -53,8 +53,6 @@ const DropDownMenu = ({setOpen}) => {
         <div className="container-text-expand">
             <span
                 onClick={() => {
-                    navigateToMenu();
-                    navigation("/blog");
                 }}
             >Тех. підтримка</span>
         </div>

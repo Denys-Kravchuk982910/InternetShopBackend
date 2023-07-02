@@ -117,18 +117,9 @@ const Navbar = () => {
                                 </div>
                             </Col>
 
-                            <Col offset={5} lg={3} className="nav-element">
-                                <div className="container-text" >
-                                    <SearchIcon
-                                        style={{
-                                            fontSize: '30px',
-                                            marginTop: '4px'
-                                        }} />
-                                    <span onMouseEnter={onMouseOnItem} className="rMenu"  >Пошук</span>
-                                </div>
-                            </Col>
+                            
 
-                            <Col lg={1} className="nav-element">
+                            <Col offset={8} lg={1} className="nav-element">
                                 <div className="container-text">
                                     <LocalMallOutlinedIcon
                                         onClick={onBuyClick}
@@ -193,7 +184,7 @@ const Navbar = () => {
 
 
                 {hamb ?
-                    <DropDownMenu setOpen={setHamb} />
+                    <DropDownMenu setOpen={setHamb} onCart={setOpen}/>
                     : <></>}
             </div>
     );

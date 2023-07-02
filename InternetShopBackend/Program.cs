@@ -36,7 +36,15 @@ builder.Services.AddSwaggerGen((SwaggerGenOptions opts) =>
 
 });
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 
 #region Validators
@@ -58,6 +66,7 @@ builder.Services.AddScoped<IValidator<AddStoryModal>, AddStoryValidator>();
 
 
 builder.Services.AddAutoMapper(typeof(ProductMapper));
+builder.Services.AddAutoMapper(typeof(OrderMapper));
 
 
 builder.Services.AddDbContext<EFContext>(opts =>
@@ -93,5 +102,5 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
     RequestPath = "/images"
 }) ;
-//app.SeedFilter();
+app.SeedFilter();
 app.Run();
