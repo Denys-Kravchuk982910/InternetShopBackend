@@ -11,13 +11,12 @@ services:
       - postgresdb
     container_name: backendshop-container
     ports:
-      - 5001:80
+      - 5001:80 
     build:
       context: .
       dockerfile: Dockerfile
     environment:
       - ConnectionStrings__DefaultConnection=User Id=postgres;Password=1;Server=postgresdb;Port=5432;Database=postgres; IntegratedSecurity=true;Pooling=true;
-      - ASPNETCORE_URLS=http://+:80
     networks:
       - mynetwork
     volumes:
@@ -42,7 +41,7 @@ services:
     ports:
       - 5003:3000
     build:
-      context: /frontend
+      context: frontend
       dockerfile: Dockerfile
     networks:
       - mynetwork
