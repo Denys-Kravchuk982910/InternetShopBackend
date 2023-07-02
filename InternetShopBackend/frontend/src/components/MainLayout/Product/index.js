@@ -46,14 +46,13 @@ const Product = () => {
 
         
         let sel = document.getElementsByClassName("select")[0];
-
         dispatch(addToCart({
             id: res.id,
             title: res.title,
             price: res.price,
             description: res.description,
             image: BACKEND_URL + "images/" + res.images[0].image,
-            size: sel.value
+            size: sel ? sel.value : 0
         }));
 
 
@@ -64,6 +63,7 @@ const Product = () => {
     const onBuyButtonClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        window.scrollTo(0,0);
 
         addToCartProduct();
         navigate("/order")

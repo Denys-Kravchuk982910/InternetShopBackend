@@ -54,6 +54,7 @@ const Card = ({image, brand, price, title, id}) => {
     const onBuyButtonClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        window.scrollTo(0,0);
 
         addToCartProduct();
         navigate("/order")
