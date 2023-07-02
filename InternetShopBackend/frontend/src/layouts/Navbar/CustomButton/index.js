@@ -13,12 +13,12 @@ const CustomBuyButton = ({setOpen}) => {
             <Row>
                 <Col sm={24}>
                     <Row>
-                        <Col offset={1} md={6}>
+                        <Col className="mt-1" xs={24} md={{span:6, offset: 1}}>
                             <button className="finnaly-button" onClick={() => setOpen(false)}>
                                 Продовжити покупки
                             </button>
                         </Col>
-                        <Col offset={9} md={6}>
+                        <Col className="mt-1" xs={24} md={{span:6, offset:9}}>
                             <button className="finnaly-button" onClick={() => {
                                 setOpen(false);
                                 navigate("/order");

@@ -28,7 +28,6 @@ const App = () => {
     if(carts && carts.length == 0 && savedCarts && savedCarts.length > 0) 
     {
       for(var i = 0; i < savedCarts.length; i++) {
-        console.log(savedCarts[i]);
         dispatch(addToCart(savedCarts[i]))
       }
     }

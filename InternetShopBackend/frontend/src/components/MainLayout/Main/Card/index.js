@@ -70,9 +70,13 @@ const Card = ({image, brand, price, title, id}) => {
     const onLinkToProduct = (e) => {
         let item = e.target.closest(".section-p1");
         let id = item.dataset.id;
-        setProductId(id);
-        window.scrollTo(0,0);
-        navigate("/product")
+        let par = e.target.closest(".product-card");
+        if(par.offsetHeight == 450) {
+
+            setProductId(id);
+            window.scrollTo(0,0);
+            navigate("/product")
+        }
     }
 
     return (<>
