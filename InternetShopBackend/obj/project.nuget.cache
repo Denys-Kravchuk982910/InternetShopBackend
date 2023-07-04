@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xYwrXn3XomGKMu8A7ueKHiSOb6LaGIFmGcQoUmIN3lWIyrxOjxPOIRGGBDnlzRFUBJriUREHaJiAMmaUbvmX4w==",
+  "dgSpecHash": "KRE58EnlzgATU8x5Dax2rON0zj205bqKQdO2dAp8fAbYRgqEp8LL9VKBROr06+mjb9R4ODf2fTZIqcLW1GqnQA==",
   "success": true,
   "projectFilePath": "D:\\TLSharp\\ASD\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj",
   "expectedPackageFiles": [
@@ -33,7 +33,7 @@
     "C:\\Users\\Денис Кравчук\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Денис Кравчук\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\Денис Кравчук\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
-    "C:\\Users\\Денис Кравчук\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Денис Кравчук\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Денис Кравчук\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Денис Кравчук\\.nuget\\packages\\npgsql\\7.0.4\\npgsql.7.0.4.nupkg.sha512",
     "C:\\Users\\Денис Кравчук\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.4\\npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512",

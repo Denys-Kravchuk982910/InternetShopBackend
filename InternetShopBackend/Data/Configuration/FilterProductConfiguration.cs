@@ -10,6 +10,9 @@ namespace InternetShopBackend.Data.Configuration
         {
             builder.HasKey(x => new { x.ProductId, x.FilterId });
 
+            builder.Property(x => x.Count)
+                .IsRequired();
+
             builder.HasOne(x => x.Product)
                 .WithMany(x => x.FilterProducts)
                 .HasForeignKey(x => x.ProductId)

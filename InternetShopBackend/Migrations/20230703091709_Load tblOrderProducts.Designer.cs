@@ -3,6 +3,7 @@ using System;
 using InternetShopBackend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InternetShopBackend.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20230703091709_Load tblOrderProducts")]
+    partial class LoadtblOrderProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,9 +87,6 @@ namespace InternetShopBackend.Migrations
                     b.Property<int>("FilterId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Count")
-                        .HasColumnType("integer");
-
                     b.HasKey("ProductId", "FilterId");
 
                     b.HasIndex("FilterId");
@@ -145,9 +145,6 @@ namespace InternetShopBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FilterId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("integer");
 
@@ -158,8 +155,6 @@ namespace InternetShopBackend.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FilterId");
 
                     b.HasIndex("OrderId");
 
@@ -298,12 +293,6 @@ namespace InternetShopBackend.Migrations
 
             modelBuilder.Entity("InternetShopBackend.Data.Entities.AppOrderProduct", b =>
                 {
-                    b.HasOne("InternetShopBackend.Data.Entities.AppFilter", "Filter")
-                        .WithMany("OrderProducts")
-                        .HasForeignKey("FilterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("InternetShopBackend.Data.Entities.AppOrder", "Order")
                         .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
@@ -315,8 +304,6 @@ namespace InternetShopBackend.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Filter");
 
                     b.Navigation("Order");
 
@@ -339,8 +326,6 @@ namespace InternetShopBackend.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("FilterProducts");
-
-                    b.Navigation("OrderProducts");
                 });
 
             modelBuilder.Entity("InternetShopBackend.Data.Entities.AppOrder", b =>

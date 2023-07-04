@@ -5,6 +5,7 @@ import useCookie from "react-use-cookie";
 import { addToCart } from "../../../../redux/reducers/cartReducer";
 import axiosService from "../../../../axios/axiosService";
 import { Alert } from "antd";
+import { useEffect, useState } from "react";
 
 
 export const CardWA = ({image, brand, price, title, id}) => {
@@ -31,41 +32,46 @@ export const CardWA = ({image, brand, price, title, id}) => {
 
 
 const Card = ({image, brand, price, title, id}) => {
-    const [productId, setProductId] = useCookie('pr_id', 0);
     const navigate = useNavigate();
+    const [productId, setProductId] = useCookie('pr_id', 0);
+    const [sizes, setArrSizes] = useState([]);
+    const [isFlag, setFlag] = useState(false);
+    const [isBuy, setBuy] = useState(false);
 
     const dispatch = useDispatch();
     const carts = useSelector(cart => cart.cart);
-    const addToCartProduct = async() => {
-        let res = await axiosService.getProductById(id);
 
+    const addToCartProduct = async(size) => {
+        let res = await axiosService.getProductById(id);
         dispatch(addToCart({
             id: res.id,
             title: res.title,
             price: res.price,
             description: res.description,
             image: image,
-            size: 0
+            size: parseInt(sizes[size-1].size)
         }));
 
-
+        setFlag(!isFlag);
+        if(isBuy) {
+            navigate("/order")
+        }
     }
 
     const onBuyButtonClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        window.scrollTo(0,0);
-
-        addToCartProduct();
-        navigate("/order")
+        fillSizes();
+        setFlag(!isFlag);
+        setBuy(true);
     }
 
     const onCartButtonClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-
-        
-        addToCartProduct();
+        fillSizes();
+        setFlag(!isFlag);
+        setBuy(false);
     }
 
     const onLinkToProduct = (e) => {
@@ -80,14 +86,37 @@ const Card = ({image, brand, price, title, id}) => {
         }
     }
 
+
+    const fillSizes = async () => {
+        let data = await axiosService.getSizes(id);
+        setArrSizes(data);
+    }
+
+    const onSelectItem = (e) => {
+        let value = e.target.value;
+        addToCartProduct(value);
+    }
+
+    const onSelectClick =(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    const onMouseHandler = (e) => {
+        if(isFlag) {
+            setFlag(false);
+        }
+    }
+
     return (<>
 
-        <section id="product1" data-id={id} onClick={() => 
+        <section id="product1" data-id={id}  onClick={() => 
     {
        
         
     }} className="section-p1">
-            <div className="product-card" onClick={onLinkToProduct}>
+            <div className="product-card"
+            onMouseLeave={onMouseHandler} onClick={onLinkToProduct}>
                 <div className="image-container">
                     <img src={image} alt="Product Image" />
                 </div>
@@ -100,16 +129,31 @@ const Card = ({image, brand, price, title, id}) => {
                     </div>
                 </div>
                 <div>
-                    {carts.filter(x => x.id == id).length == 0 ? <>
-                        <button className="button-buy" onClick={onBuyButtonClick}>ПРИДБАТИ В 1 КЛІК</button>
+                    {!isFlag && (carts.filter(x => x.id == id).length == 0 ? <>
+                        <button className="button-buy" 
+                            onClick={onBuyButtonClick}>ПРИДБАТИ В 1 КЛІК</button>
                         <button className="button-cart"
                             onClick={onCartButtonClick}>ДОДАТИ В КОШИК</button></>
                         :
                         <>
                             <Alert message="Товар додано у кошик." type="success" />
-                        </>}
+                        </>)}
 
-
+                    { isFlag &&
+                        <select
+                            style={{
+                                marginTop: '10px',
+                                fontSize: '1.5em'
+                            }}
+                        className="select" onClick={onSelectClick} onChange={onSelectItem}>
+                        <option value={0}>Виберіть розмір</option>
+                        {sizes.map((element, index) => {
+                            return (
+                                <option value={index + 1} key={"sizeCard" + (index+1)}>{element.size}</option>
+                            )
+                        })}
+                       </select> 
+                    }
                 </div>
             </div>
         </section>

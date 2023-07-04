@@ -39,10 +39,13 @@ const cartSlice = createSlice({
                 JSON.stringify( [...updated])
             );
             return [...updated];
+        },
+        clearFilters(state, action) {
+            return [];
         }
     }
 });
 
 
-export const {addToCart, removeFromCart, changeSize} = cartSlice.actions;
+export const {addToCart, removeFromCart, changeSize, clearFilters} = cartSlice.actions;
 export default cartSlice.reducer;

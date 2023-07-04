@@ -12,5 +12,6 @@
 
         public virtual ICollection<AppProductImage> ProductImages { get; set; }
         public virtual ICollection<AppFilterProduct> FilterProducts { get; set; }
+        public virtual ICollection<AppOrderProduct> OrderProducts { get; set; }
     }
 }

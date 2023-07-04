@@ -14,6 +14,7 @@ namespace InternetShopBackend.Data
         public DbSet<AppProductImage> ProductImages { get; set; }
         public DbSet<AppFilterProduct> FilterProducts { get; set; }
         public DbSet<AppOrder> Orders { get; set; }
+        public DbSet<AppOrderProduct> OrderProducts { get; set; }
         public EFContext(DbContextOptions opts) : base(opts)
         {
 
@@ -30,6 +31,7 @@ namespace InternetShopBackend.Data
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new FilterProductConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductOrderConfiguration());
         }
     }
 }

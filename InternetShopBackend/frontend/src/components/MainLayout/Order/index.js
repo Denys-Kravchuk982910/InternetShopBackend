@@ -8,16 +8,37 @@ import yupValidation from './Validation/fieldValidation'
 import CustomButton from './../Catalog/Filter/customButton'
 import './Validation/styles/valid.css';
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import axiosService from "../../../axios/axiosService";
+import { clearFilters } from "../../../redux/reducers/cartReducer";
+import { setNullItem } from "../../../redux/reducers/pageReducer";
+import { setProducts } from "../../../redux/reducers/productReducer";
 const Order = () => {
 
+    const [productId, setProductId] = useCookie('pr_id', 0);
+    const carts = useSelector(cart => cart.cart);
     const [visible, setVisible] = useState(true);
     const [orderId, setOrderId] = useState(0);
+    const dispatch = useDispatch();
     const pushOrder = async (values) => {
-        let res = await axiosService.pushOrder(values);
+
+        let obj = {...values, 
+            targets: JSON.stringify([...(carts.map((item) => {
+                return {
+                    size: item.size,
+                    id: item.id
+                }
+            }))])};
+        let res = await axiosService.pushOrder(
+            obj);
         setOrderId(res.id);
+        localStorage.setItem("cart", []);
+        dispatch(clearFilters());
+        dispatch(setNullItem())
+
+        let products = await axiosService.setProduct(0);
+        dispatch(setProducts(products));
     }
 
     const onSubmitHandler = (values) => {
@@ -29,19 +50,15 @@ const Order = () => {
 
     let navigation = useNavigate();
 
-    const [productId, setProductId] = useCookie('pr_id', 0);
-    const carts = useSelector(cart => cart.cart);
 
     const getSum = () => {
         let sum = 0;
         let arr = carts.map(el => {
-sum += el.price;
+            sum += el.price;
             return el.price
            })
 
-           return sum;
-
-        
+        return sum;
     }
 
     return (<>

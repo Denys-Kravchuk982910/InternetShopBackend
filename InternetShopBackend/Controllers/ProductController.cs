@@ -138,14 +138,23 @@ namespace InternetShopBackend.Controllers
                 IActionResult res = null!;
                 try
                 {
-
-                    AppFilterProduct appFilterProduct = new AppFilterProduct
+                    var item = _context.FilterProducts.FirstOrDefault(x => x.ProductId == productFilter.ProductId
+                    && x.FilterId == productFilter.FilterId);
+                    if (item == null)
                     {
-                        FilterId = productFilter.FilterId,
-                        ProductId = productFilter.ProductId
-                    };
+                        AppFilterProduct appFilterProduct = new AppFilterProduct
+                        {
+                            FilterId = productFilter.FilterId,
+                            ProductId = productFilter.ProductId,
+                            Count = 1
+                        };
 
-                    _context.FilterProducts.Add(appFilterProduct);
+                        _context.FilterProducts.Add(appFilterProduct);
+                    }
+                    else
+                    {
+                        item.Count++;
+                    }
                     _context.SaveChanges();
                     res = Ok();
                 }
@@ -230,7 +239,9 @@ namespace InternetShopBackend.Controllers
                 IActionResult res = null;
                 try
                 {
-                    var products = _context.Products.Include(x => x.ProductImages).Select(x => new
+                    var products = _context.Products.Include(x => x.ProductImages)
+                    .Include(x => x.FilterProducts).ThenInclude(x => x.Filter)
+                    .Where(x => x.FilterProducts.Where(y => y.Filter.ParentId == 4 && y.Count > 0).Any()).Select(x => new
                     {
                         Id = x.Id,
                         Title = x.Title,
@@ -245,7 +256,8 @@ namespace InternetShopBackend.Controllers
                             Id = y.Id,
                             ProductId = y.ProductId
                         }).ToList()
-                    }).OrderByDescending(x => x.Id)
+                    })
+                    .OrderByDescending(x => x.Id)
                     .Skip(12 * skipped).Take(12).ToList();
                     
 
@@ -308,6 +320,8 @@ namespace InternetShopBackend.Controllers
                         bool flag = false;
                         
                         IQueryable<AppProduct> productsQuery = _context.Products.Include(x => x.FilterProducts)
+                        .ThenInclude(x => x.Filter)
+                        .Where(x => x.FilterProducts.Where(y => y.Filter.ParentId == 4 && y.Count > 0).Any())
                                     .Include(x => x.ProductImages)
                                     .Select(x => x).AsQueryable();
                         foreach (var group in query)
@@ -318,7 +332,7 @@ namespace InternetShopBackend.Controllers
                                 var testItem = productsQuery.Include(x => x.FilterProducts)
                                     .Include(x => x.ProductImages)
                                 .Where(x => x.FilterProducts
-                                .FirstOrDefault(y => y.FilterId == it.Id) != null);
+                                .FirstOrDefault(y => y.FilterId == it.Id && y.Count > 0) != null);
                                 
                                 if (testItem.Count() > 0)
                                 {
@@ -335,7 +349,8 @@ namespace InternetShopBackend.Controllers
                         .Select(x => x).ToList();
 
 
-                        var filtered = productArray.Select(x => new
+                        var filtered = productArray
+                        .Select(x => new
                         {
                             Id = x.Id,
                             Title = x.Title,
@@ -350,13 +365,17 @@ namespace InternetShopBackend.Controllers
                                 Id = y.Id,
                                 ProductId = y.ProductId
                             }).ToList()
-                        }).DistinctBy(x => x.Id)
+                        })
+                        .DistinctBy(x => x.Id)
                         .OrderByDescending(x => x.Id)
                         .Skip(12 * filters.skipped).Take(12).ToList();
 
                         return Ok(filtered);
                     }
-                    var products = _context.Products.Include(x => x.ProductImages).Select(x => new
+                    var products = _context.Products.Include(x => x.ProductImages)
+                    .Include(x => x.FilterProducts).ThenInclude(x => x.Filter)
+                    .Where(x => x.FilterProducts.Where(y => y.Filter.ParentId == 4 && y.Count > 0).Any())
+                    .Select(x => new
                     {
                         Id = x.Id,
                         Title = x.Title,
@@ -371,7 +390,8 @@ namespace InternetShopBackend.Controllers
                             Id = y.Id,
                             ProductId = y.ProductId
                         }).ToList()
-                    }).OrderByDescending(x => x.Id)
+                    })
+                    .OrderByDescending(x => x.Id)
                     .Skip(12 * filters.skipped).Take(12).ToList();
 
 
@@ -424,6 +444,8 @@ namespace InternetShopBackend.Controllers
             return await Task.Run(() =>
             {
                 return Ok(_context.Products
+                    .Include(x => x.FilterProducts).ThenInclude(x => x.Filter)
+                    .Where(x => x.FilterProducts.Where(y => y.Filter.ParentId == 4 && y.Count > 0).Any())
                     .Select(x => x).Include(x => x.ProductImages).OrderByDescending(x => x.Id)
                     .Take(5).ToList()
                     .Select(x => new
@@ -442,6 +464,27 @@ namespace InternetShopBackend.Controllers
                             ProductId = y.ProductId
                         }).ToList()
                     }));
+            });
+        }
+
+        [HttpGet]
+        [Route("getsize")]
+        public async Task<IActionResult> GetSize([FromQuery] int id)
+        {
+
+            return await Task.Run(() =>
+            {
+                var filters = _context.Products.Include(x => x.FilterProducts)
+                .ThenInclude(x => x.Filter).First(x => x.Id == id)
+                .FilterProducts.Where(x => x.Filter.ParentId == 4 && x.Count > 0).Select(x => x.Filter);
+
+                var sizes = filters.Select(x => new
+                {
+                    Id = x.Id,
+                    Size = x.Title
+                });
+
+                return Ok(sizes);
             });
         }
     }

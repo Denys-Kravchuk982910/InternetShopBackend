@@ -59,6 +59,7 @@ namespace InternetShopBackend.Controllers
             {
                 var result = _context.Filters.Include(x => x.Children)
                 .Where(x => x.ParentId == getFilter)
+                .OrderBy(x => x.Id)
                 .Select(x => new
                 {
                     Id = x.Id,

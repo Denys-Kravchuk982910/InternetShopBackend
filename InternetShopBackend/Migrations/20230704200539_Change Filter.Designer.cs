@@ -3,6 +3,7 @@ using System;
 using InternetShopBackend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InternetShopBackend.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20230704200539_Change Filter")]
+    partial class ChangeFilter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,6 +148,12 @@ namespace InternetShopBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AppFilterProductFilterId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("AppFilterProductProductId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("FilterId")
                         .HasColumnType("integer");
 
@@ -164,6 +173,8 @@ namespace InternetShopBackend.Migrations
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("AppFilterProductProductId", "AppFilterProductFilterId");
 
                     b.ToTable("tblOrderProducts", (string)null);
                 });
@@ -299,7 +310,7 @@ namespace InternetShopBackend.Migrations
             modelBuilder.Entity("InternetShopBackend.Data.Entities.AppOrderProduct", b =>
                 {
                     b.HasOne("InternetShopBackend.Data.Entities.AppFilter", "Filter")
-                        .WithMany("OrderProducts")
+                        .WithMany()
                         .HasForeignKey("FilterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -315,6 +326,10 @@ namespace InternetShopBackend.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("InternetShopBackend.Data.Entities.AppFilterProduct", null)
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("AppFilterProductProductId", "AppFilterProductFilterId");
 
                     b.Navigation("Filter");
 
@@ -339,7 +354,10 @@ namespace InternetShopBackend.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("FilterProducts");
+                });
 
+            modelBuilder.Entity("InternetShopBackend.Data.Entities.AppFilterProduct", b =>
+                {
                     b.Navigation("OrderProducts");
                 });
 

@@ -9,5 +9,6 @@
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Post { get; set; }
+        public virtual ICollection<AppOrderProduct> OrderProducts { get; set; }
     }
 }

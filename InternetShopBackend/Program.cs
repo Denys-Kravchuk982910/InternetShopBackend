@@ -62,6 +62,7 @@ builder.Services.AddScoped<IValidator<DeletePostModal>, DeletePostValidator>();
 builder.Services.AddScoped<IValidator<AddPostModal>, AddPostValidator>();
 builder.Services.AddScoped<IValidator<DeleteStoryModal>, DeleteStoryValidator>();
 builder.Services.AddScoped<IValidator<AddStoryModal>, AddStoryValidator>();
+builder.Services.AddScoped<IValidator<PushOrder>, OrderValidator>();
 #endregion
 
 

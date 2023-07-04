@@ -35,11 +35,13 @@ namespace InternetShopBackend.Services
                         Title = "Бренд",
                         Parent = main
                     });
-                    context.Filters.Add(new AppFilter
+
+                    var sizeFilter = new AppFilter
                     {
                         Title = "Розмір",
                         Parent = main
-                    });
+                    };
+                    context.Filters.Add(sizeFilter);
                     context.Filters.Add(new AppFilter
                     {
                         Title = "Колір",
@@ -97,8 +99,19 @@ namespace InternetShopBackend.Services
                     context.SaveChanges();
 
 
+                    for (int i = 36; i <= 48; i++)
+                    {
+                        context.Filters.Add(new AppFilter
+                        {
+                            Title = i.ToString(),
+                            Parent = sizeFilter
+                        });
+                    }
+
+                    context.SaveChanges();
                 }
 
+                
             }
 
         }

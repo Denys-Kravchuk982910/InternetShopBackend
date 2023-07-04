@@ -12,29 +12,40 @@ const Product = () => {
 
     const pr_id = getCookie("pr_id");
     const [product, setProduct] = useState({});
+
+    const [size, setSize] = useState(0);
+    const [sizes, setArrSizes] = useState([]);
     const fillProduct = async () => {
         let res = await axiosService.getProductById(pr_id);
         setProduct(res);
         setMainImg(res.images[0].image);
     }
 
+
+    const fillSizes = async (id) => {
+        let data = await axiosService.getSizes(id);
+        setSize(carts.filter(x => x.id == id) 
+        ? parseInt(carts.filter(x => x.id == id)[0].size) 
+        : parseInt(data[0].size));
+        setArrSizes(data);
+    }
+
     const carts = useSelector(cart => cart.cart);
 
     useEffect(() => {
         if(pr_id){
-
-            
             fillProduct();
-            
             var MainImg = document.getElementById("MainImg");
             var smallimg = document.getElementsByClassName("small-img");
 
-        for(var i = 0; i < smallimg.length; i++) {
+            for(var i = 0; i < smallimg.length; i++) {
                 smallimg[i].addEventListener("click", (e) => {
-                    console.log("kkjkj")
+                    
                     MainImg.src = smallimg[i].src;
                 });
             }
+
+            fillSizes(pr_id);
         }
 
     }, []);
@@ -44,18 +55,14 @@ const Product = () => {
     const addToCartProduct = async() => {
         let res = await axiosService.getProductById(pr_id);
 
-        
-        let sel = document.getElementsByClassName("select")[0];
         dispatch(addToCart({
             id: res.id,
             title: res.title,
             price: res.price,
             description: res.description,
             image: BACKEND_URL + "images/" + res.images[0].image,
-            size: sel ? sel.value : 0
+            size: size
         }));
-
-
     }
 
     let navigate = useNavigate();
@@ -78,6 +85,7 @@ const Product = () => {
     }
 
     const onSelectItem = (e) => {
+        setSize(e.target.value);
         if(carts.filter(x => x.id == pr_id).length > 0) {
             dispatch(changeSize({
                 id: pr_id,
@@ -126,25 +134,12 @@ const Product = () => {
                                 <h4>{product.title}</h4>
                                 <h2>{product.price} грн</h2>
                                 <h5>Оберіть розмір</h5>
-                                <select className="select" onChange={onSelectItem}>
-                                    <option value={carts.filter(x => x.id == pr_id).length > 0 &&
-                                        carts.filter(x => x.id == pr_id)[0] ? 
-                                        <>
-                                        {carts.filter(x => x.id == pr_id)[0].size}
-                                        </> :0
-                                        }>
-                                        {carts.filter(x => x.id == pr_id).length > 0 &&
-                                        carts.filter(x => x.id == pr_id)[0] ? 
-                                        <>
-                                        {carts.filter(x => x.id == pr_id)[0].size}
-                                        </> :<>Виберіть розмір</>
-                                        }
-                                    </option>
-                                    <option>42</option>
-                                    <option>41</option>
-                                    <option>40</option>
-                                    <option>39</option>
-                                    <option>38</option>
+                                <select value={size} className="select" onChange={onSelectItem}>
+                                    {sizes.map((element, index) => {
+                                        return (
+                                            <option key={"size" + index}>{element.size}</option>
+                                        )
+                                    })}
                                 </select>
                                 {carts.filter(x => x.id == pr_id).length != 1 ?<>
                                     <button className="button-cart-product" onClick={onCartButtonClick}>ДОДАТИ В КОШИК</button><br />

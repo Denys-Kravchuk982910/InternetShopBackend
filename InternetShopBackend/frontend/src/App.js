@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     getAllProducts();
 
-    let savedCarts= JSON.parse(localStorage.getItem("cart"));
+    let savedCarts= localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
     if(carts && carts.length == 0 && savedCarts && savedCarts.length > 0) 
     {
       for(var i = 0; i < savedCarts.length; i++) {

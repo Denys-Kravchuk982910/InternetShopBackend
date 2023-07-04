@@ -45,6 +45,12 @@ class AxiosService {
         let result = await axios.post(BACKEND_URL + "api/order/push", values);
         return result.data;
     }
+
+    getSizes = async (id) => {
+        
+        let result = await axios.get(BACKEND_URL + "api/product/getsize?id=" + id);
+        return result.data;
+    }
 }
 
 
