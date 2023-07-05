@@ -8,6 +8,7 @@ import axios from 'axios';
 import { BACKEND_URL } from './constants/default';
 import axiosService from './axios/axiosService';
 import { addToCart } from './redux/reducers/cartReducer';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 // main; shop; cart; login; profile; detailed good
 const App = () => {
   
@@ -34,7 +35,9 @@ const App = () => {
   },
     []);
 
+    const clientId = "832451112424-riqdcdh3uj0n8l3iiknbqihucpeg8s9p.apps.googleusercontent.com";
   return (
+    <GoogleOAuthProvider clientId={clientId}>
       <Suspense fallback={<div>Loading...</div>}>
         <BrowserRouter>
           <Routes>
@@ -50,6 +53,7 @@ const App = () => {
           </Routes>
         </BrowserRouter>
       </Suspense>
+    </GoogleOAuthProvider>
   );
 }
 

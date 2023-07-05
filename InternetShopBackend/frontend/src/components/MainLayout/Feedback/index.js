@@ -1,8 +1,76 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Input, Row, Col } from 'antd';
 import "./style/feedback.css";
+import { useEffect, useState } from 'react';
+import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, googleLogout  } from '@react-oauth/google';
+import jwtDecode from 'jwt-decode';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFeedback, setFeedback, updateFeedback } from '../../../redux/reducers/feedbackReducer';
+import axiosService from '../../../axios/axiosService';
 
 const Feedback = ({}) => {
+    const [text, setText] = useState("");
+    const dispatch = useDispatch();
+    const feedbacks = useSelector(feedback => feedback.feedback)
+
+    const fillFeedbacks = async () => {
+        let res = await axiosService.getFeedback();
+        dispatch(setFeedback([...res.feedbacks]));
+    }
+    useEffect(() => {
+        fillFeedbacks();
+    },[]);
+
+    const responseGoogleSuccess = async (e) => {
+        let obj = await axiosService.getUserInfo(e.access_token);
+
+        
+        let image = obj.picture;
+        let name = obj.name;
+        let message = text;
+        let email = obj.email;
+        
+        let isExist = await axiosService.isFeedback(email);
+
+        
+        let currentDate = new Date();
+        let hours = currentDate.getHours();
+        let minutes = currentDate.getMinutes();
+
+        let minutesStr = minutes.toString().length > 1 ? "" : " ";
+
+        let time = `${hours}:${minutesStr}${minutes}`;
+
+        let feedbackObject = {
+            image: image,
+            name: name,
+            message: message,
+            time: time,
+            email: email
+        }
+
+        if(isExist) {
+            let res = await axiosService.updateFeedback(feedbackObject);
+            dispatch(updateFeedback(feedbackObject));
+        } else {
+
+            let res = await axiosService.addFeedback(feedbackObject);
+            dispatch(addFeedback(feedbackObject));
+        }
+        googleLogout();
+        setText("")
+    }  
+
+    const responseGoogleFail = (e) => {
+
+    }
+
+    const login = useGoogleLogin({
+        onSuccess: codeResponse => responseGoogleSuccess(codeResponse),
+      });
+    
+
     return (<>
         <div className="shreddit-comment-head">
             <Row>
@@ -34,13 +102,54 @@ const Feedback = ({}) => {
                 <p>Які у вас враження від нашого магазину?<br />Поділіться з нами!</p>
             </div>
 
-
-            <Input size="large" placeholder="Ваш коментар..." prefix={<UserOutlined />} />
+            <Input value={text} onChange={(e) => {
+                setText(e.target.value);
+            }} size="large" onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    if(text.length > 0) {
+                        login();
+                    }
+                }
+            }} placeholder="Ваш коментар... (Після введення тисніть Enter)" prefix={<UserOutlined />} />
 
         </div>
 
-        <Row>
-            <Col lg={8} md={12} sm={12} xs={24}>
+        <Row className='row-comments'>
+
+            {feedbacks && feedbacks.map((element, key) => {
+                return (<Col key={"feedback" + key} lg={8} md={12} sm={12} xs={24}>
+                    <div className="shreddit-comment">
+                        <Row>
+                            <Col xs={3} xl={2} lg={3} className='title-feed'>
+                                <span className="comment-author-avatar">
+                                    <div className="avatar-container">
+                                        <span className="avatar">
+                                            <span className="avatar-inner">
+                                                <svg className="avatar-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 121 122">
+                                                    <image href={element.image} alt="User Avatar" height="100%" width="100%"></image>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </span>
+    
+                            </Col>
+                            <Col xs={3} xl={22} lg={21} className='title-feed'>
+                                <div>
+                                    <span className="comment-author font-bold">{element.name}</span><br />
+                                    <span className="comment-time">{element.time}</span>
+                                </div>
+                            </Col>
+                        </Row>
+    
+                        <div className="comment-content">
+                            <p>{element.message}</p>
+                        </div>
+                    </div>
+                </Col>);
+            })}
+
+            {/* <Col lg={8} md={12} sm={12} xs={24}>
                 <div className="shreddit-comment">
                     <Row>
                         <Col xs={3} xl={2} lg={3} className='title-feed'>
@@ -355,9 +464,9 @@ const Feedback = ({}) => {
                         <p>Великий вибір кросівок у магазині. Знайшов свою ідеальну пару, яка підходить як для спорту, так і для повсякденного використання. Дякую за якість!</p>
                     </div>
                 </div>
-            </Col>
+            </Col> */}
         </Row>
-    </>);
+        </>);
 }
 
 export default Feedback;

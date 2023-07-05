@@ -5,6 +5,7 @@ import productReducer from "./reducers/productReducer";
 import pageReducer from "./reducers/pageReducer";
 import filterReducer from "./reducers/filterReducer";
 import cartReducer from "./reducers/cartReducer";
+import feedbackReducer from "./reducers/feedbackReducer";
 
 
 const middleware = [thunk];
@@ -15,7 +16,8 @@ export const store = configureStore({
         products: productReducer,
         page: pageReducer,
         filter: filterReducer,
-        cart: cartReducer
+        cart: cartReducer,
+        feedback: feedbackReducer
     },
     middleware: middleware,
     devTools: composeWithDevTools(),

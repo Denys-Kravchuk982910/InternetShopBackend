@@ -18,8 +18,11 @@ namespace InternetShopBackend.Data.Configuration
             builder.Property(x => x.Image)
                 .IsRequired().HasMaxLength(255);
 
+            builder.Property(x => x.Email)
+                .IsRequired().HasMaxLength(255);
+
             builder.Property(x => x.Time)
-                .IsRequired();
+                .IsRequired().HasMaxLength(255);
         }
     }
 }
