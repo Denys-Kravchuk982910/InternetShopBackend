@@ -83,6 +83,16 @@ class AxiosService {
         let result = await axios.post(BACKEND_URL + "api/feedback/update", obj);
         return result.data;
     }
+
+    getStories = async () => {
+        let result = await axios.get(BACKEND_URL + "api/story/get");
+        return result.data;
+    }
+
+    getPosts = async () => {
+        let result = await axios.get(BACKEND_URL + "api/post/get");
+        return result.data;
+    }
 }
 
 

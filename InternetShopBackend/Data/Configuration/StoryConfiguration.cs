@@ -15,7 +15,8 @@ namespace InternetShopBackend.Data.Configuration
             builder.Property(x => x.Image)
                 .HasMaxLength(255).IsRequired();
 
-            builder.Property(x => x.StoryId).IsRequired();
+            builder.Property(x => x.Title)
+                .HasMaxLength(255).IsRequired();
         }
     }
 }

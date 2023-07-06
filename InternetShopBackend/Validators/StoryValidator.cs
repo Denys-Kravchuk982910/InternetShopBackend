@@ -10,7 +10,7 @@ namespace InternetShopBackend.Validators
             RuleFor(x => x.Image)
                 .NotEmpty().WithMessage("Поле не може бути пустим!")
                 .MinimumLength(2).WithMessage("Мінімальна кількість символів - 2");
-            RuleFor(x => x.StoryId)
+            RuleFor(x => x.Title)
                 .NotEmpty().WithMessage("Поле не може бути пустим");
              
         }
