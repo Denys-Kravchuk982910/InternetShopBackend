@@ -23,15 +23,16 @@ const CustomModal = ({ text, price, image, description, id }) => {
                     <Col xs={24} md={4}>
                             <img src={image} className="product-cart" /> 
                     </Col>
-                    <Col xs={22} md={{span:10, offset: 1}}>
+                    <Col xs={22} md={{span:16, offset: 1}}>
                         <span className="cart-title">{text}</span><br/><br/>
                         <span className='cart-description'>
                             {description}
                         </span>
                         <br/>
+                        <br/>
                         <span className='cart-price'>{price} грн.</span>
                     </Col>
-                    <Col xs={{span:2}} md={{span: 2, offset: 7}}>
+                    <Col xs={{span:2}} md={{span: 2, offset: 1}}>
                         <span onClick={onDeleteClick}>
                             <DeleteOutlineIcon className='icon-bin' fontSize='large'/>
                         </span>
