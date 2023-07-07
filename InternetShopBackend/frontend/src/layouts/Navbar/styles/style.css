@@ -130,6 +130,7 @@ border-radius: 4px;
     border-top: 1px solid rgb(214, 204, 204);
 }
 .cart-price{
+    padding-top: 20px;
     font-size: 24px;
     font-weight: 700;
     color: #088178;
