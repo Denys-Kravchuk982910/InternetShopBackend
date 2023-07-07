@@ -2,8 +2,8 @@
 {
     public class AddStoryModal
     {
-        public int StoryId { get; set; }
         public string Image { get; set; }
+        public string Title { get; set; }
     }
     
     public class DeleteStoryModal
@@ -15,6 +15,17 @@
     {
         public int Id { get; set; }
         public string Image { get; set; }
-        public int StoryId { get; set; }
+    }
+
+
+    public class GetStoryModal
+    {
+        public string Title { get; set; }
+        public List<GetStoryImage> Images { get; set; }
+    }
+
+    public class GetStoryImage
+    {
+        public string Image { get; set; }
     }
 }

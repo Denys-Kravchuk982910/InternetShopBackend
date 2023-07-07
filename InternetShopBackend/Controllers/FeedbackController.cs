@@ -11,12 +11,10 @@ namespace InternetShopBackend.Controllers
     public class FeedbackController : ControllerBase
     {
         private EFContext _context { get; set; }
-
         public FeedbackController(EFContext context)
         {
             _context = context; 
         }
-
         [HttpPost]
         [Route("add")]
         public async Task<IActionResult> AddFeedback([FromBody] AddFeedback addFeedback)
@@ -71,7 +69,6 @@ namespace InternetShopBackend.Controllers
                 });
             });
         }
-
         [HttpGet]
         [Route("exist")]
         public async Task<IActionResult> IsExist([FromQuery] string email)
@@ -81,7 +78,6 @@ namespace InternetShopBackend.Controllers
                 return Ok(_context.Feedbacks.FirstOrDefault(x => x.Email == email) != null);
             });
         }
-
         [HttpPost]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody] AddFeedback update)
