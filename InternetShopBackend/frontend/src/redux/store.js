@@ -20,5 +20,5 @@ export const store = configureStore({
         feedback: feedbackReducer
     },
     middleware: middleware,
-    devTools: composeWithDevTools(),
+    devTools: process.env.NODE_ENV !== 'production' ? composeWithDevTools() : false
 });

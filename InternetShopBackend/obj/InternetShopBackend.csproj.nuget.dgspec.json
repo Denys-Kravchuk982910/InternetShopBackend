@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj": {}
+    "C:\\Users\\Денис Кравчук\\Desktop\\TestShop\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj": {
+    "C:\\Users\\Денис Кравчук\\Desktop\\TestShop\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj",
+        "projectUniqueName": "C:\\Users\\Денис Кравчук\\Desktop\\TestShop\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj",
         "projectName": "InternetShopBackend",
-        "projectPath": "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj",
-        "packagesPath": "C:\\Users\\arsen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\obj\\",
+        "projectPath": "C:\\Users\\Денис Кравчук\\Desktop\\TestShop\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj",
+        "packagesPath": "C:\\Users\\Денис Кравчук\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Денис Кравчук\\Desktop\\TestShop\\InternetShopBackend\\InternetShopBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\arsen\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Денис Кравчук\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -100,7 +102,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.411\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

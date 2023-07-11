@@ -185,21 +185,23 @@
     padding:0px ;
   }
 }
-
-.product-card:hover {
+/* Hover events */
+.product-card-hover {
   transform: translateY(-50px);
   height: 450px;
   
 }
-.product-card:hover .button-cart {
+.product-card-hover .button-cart {
 
   opacity: 1;
   
 }
 
-.product-card:hover .button-buy{
+.product-card-hover .button-buy{
   opacity: 1;
 }
+
+
 .image-container {
   height: 200px;
   overflow: hidden;
