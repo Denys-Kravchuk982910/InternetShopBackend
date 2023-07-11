@@ -89,7 +89,7 @@ const Blog = () => {
                                 <b>CrosShop</b><br />
                                 <span className="topic">Одяг (бренд)</span><br />
                                 •Новий original магазин у Рівному🔥<br />
-                                •Reebok,Puma,Adidas,Jordan,Nike,NewBalance,Timberland<br />
+                                •Reebok, Puma, Adidas, Jordan, Nike, NewBalance, Timberland<br />
                                 •Соборна 14а<br />
                                 •Міцкевича 5<br />
                                 TikTok⬇️<br />
@@ -107,7 +107,7 @@ const Blog = () => {
                                 <Col md={24}>
                                     <div className="story-container" data-id={index}>
                                         <div className="img-con">
-                                            <img className="bar-img" src={BACKEND_URL + "images/" + element.images[index].image} />
+                                            <img className="bar-img" src={BACKEND_URL + "images/" + (element.images[0] ? element.images[0].image : <></>) } />
                                         </div>
                                         <p>{element.title}</p>
                                     </div>

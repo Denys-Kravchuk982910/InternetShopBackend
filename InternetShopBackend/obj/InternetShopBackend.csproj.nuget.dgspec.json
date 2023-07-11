@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj": {}
+    "/var/www/WebStudio/InternetShopBackend/InternetShopBackend/InternetShopBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj": {
+    "/var/www/WebStudio/InternetShopBackend/InternetShopBackend/InternetShopBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj",
+        "projectUniqueName": "/var/www/WebStudio/InternetShopBackend/InternetShopBackend/InternetShopBackend.csproj",
         "projectName": "InternetShopBackend",
-        "projectPath": "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\InternetShopBackend.csproj",
-        "packagesPath": "C:\\Users\\arsen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arsen\\OneDrive\\Рабочий стол\\shop_new\\InternetShopBackend\\InternetShopBackend\\obj\\",
+        "projectPath": "/var/www/WebStudio/InternetShopBackend/InternetShopBackend/InternetShopBackend.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/var/www/WebStudio/InternetShopBackend/InternetShopBackend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\arsen\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -100,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.411\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.411/RuntimeIdentifierGraph.json"
         }
       }
     }
