@@ -15,4 +15,3 @@ RUN mkdir -p /app/Images
 COPY --from=build /app/publish/Images /app/Images
 
 ENTRYPOINT [ "dotnet", "/app/InternetShopBackend.dll" ]
-

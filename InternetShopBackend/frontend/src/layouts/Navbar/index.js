@@ -171,7 +171,7 @@ const Navbar = () => {
                         text={element.title} 
                         price={element.price} 
                         image={element.image} 
-                        description={element.description}
+                        description={"Розмір обраної пари: " + element.size}
                          />
                         )
                     }) : <>

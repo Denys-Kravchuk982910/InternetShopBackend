@@ -20,5 +20,5 @@ export const store = configureStore({
         feedback: feedbackReducer
     },
     middleware: middleware,
-    devTools: composeWithDevTools(),
+    devTools: false
 });

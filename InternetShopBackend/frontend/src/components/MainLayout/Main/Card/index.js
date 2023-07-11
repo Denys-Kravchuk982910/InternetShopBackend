@@ -6,6 +6,7 @@ import { addToCart } from "../../../../redux/reducers/cartReducer";
 import axiosService from "../../../../axios/axiosService";
 import { Alert } from "antd";
 import { useEffect, useState } from "react";
+import classNames from "classnames";
 
 
 export const CardWA = ({image, brand, price, title, id}) => {
@@ -95,6 +96,7 @@ const Card = ({image, brand, price, title, id}) => {
     const onSelectItem = (e) => {
         let value = e.target.value;
         addToCartProduct(value);
+        setBtnOpen(false);
     }
 
     const onSelectClick =(e) => {
@@ -103,10 +105,17 @@ const Card = ({image, brand, price, title, id}) => {
     }
 
     const onMouseHandler = (e) => {
-        if(isFlag) {
-            setFlag(false);
+        if(!btnOpen) {
+
+            if(isFlag) {
+                setFlag(false);
+            }
+            setOpen(false);
         }
     }
+
+    const [open, setOpen] = useState(false);
+    const [btnOpen, setBtnOpen] = useState(false);
 
     return (<>
 
@@ -115,7 +124,8 @@ const Card = ({image, brand, price, title, id}) => {
        
         
     }} className="section-p1">
-            <div className="product-card"
+            <div className={classNames("product-card", {"product-card-hover" : open})}
+            onMouseEnter={() => {setOpen(true)}}
             onMouseLeave={onMouseHandler} onClick={onLinkToProduct}>
                 <div className="image-container">
                     <img src={image} alt="Product Image" />
@@ -141,18 +151,21 @@ const Card = ({image, brand, price, title, id}) => {
 
                     { isFlag &&
                         <select
+                            onMouseDown={() => {
+                                setBtnOpen(true);
+                            }}
                             style={{
                                 marginTop: '10px',
                                 fontSize: '1.5em'
                             }}
-                        className="select" onClick={onSelectClick} onChange={onSelectItem}>
-                        <option value={0}>Виберіть розмір</option>
-                        {sizes.map((element, index) => {
-                            return (
-                                <option value={index + 1} key={"sizeCard" + (index+1)}>{element.size}</option>
-                            )
-                        })}
-                       </select> 
+                            className="select" onClick={onSelectClick} onChange={onSelectItem}>
+                            <option value={0}>Виберіть розмір</option>
+                            {sizes.map((element, index) => {
+                                return (
+                                    <option value={index + 1} key={"sizeCard" + (index + 1)}>{element.size}</option>
+                                )
+                            })}
+                        </select> 
                     }
                 </div>
             </div>
