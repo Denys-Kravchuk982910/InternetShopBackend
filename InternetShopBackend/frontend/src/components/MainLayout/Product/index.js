@@ -24,7 +24,6 @@ const Product = () => {
 
     const fillSizes = async (id) => {
         let data = await axiosService.getSizes(id);
-
         setSize(carts.filter(x => x.id == id).length > 0
         ? parseInt(carts.filter(x => x.id == id)[0].size) 
         : parseInt(data[0].size));

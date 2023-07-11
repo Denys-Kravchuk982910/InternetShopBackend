@@ -12,11 +12,12 @@ import classNames from "classnames";
 export const CardWA = ({image, brand, price, title, id}) => {
 
     const navigate = useNavigate();
-
+    const [productId, setProductId] = useCookie('pr_id', 0);
 
     return (<div id="product1" data-id={id} onClick={() => 
     {
         window.scrollTo(0,0);
+        setProductId(id);
         navigate("/product")
         
     }}>
