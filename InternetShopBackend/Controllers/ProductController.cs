@@ -3,6 +3,7 @@ using InternetShopBackend.Data;
 using InternetShopBackend.Data.Entities;
 using InternetShopBackend.Modals;
 using InternetShopBackend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace InternetShopBackend.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize]
         public async Task<IActionResult> AddProduct([FromBody] AddProduct addProduct)
         {
             return await Task.Run(() =>
@@ -57,6 +59,7 @@ namespace InternetShopBackend.Controllers
 
         [HttpPost]
         [Route("addimage")]
+        [Authorize]
         public async Task<IActionResult> AddProductImage([FromBody] ProductImage productImage)
         {
             return await Task.Run(() =>
@@ -100,6 +103,7 @@ namespace InternetShopBackend.Controllers
 
         [HttpPost]
         [Route("deleteimage")]
+        [Authorize]
         public async Task<IActionResult> DeleteProductImage([FromBody] DelProductImage productImage)
         {
             return await Task.Run(() =>
@@ -131,6 +135,7 @@ namespace InternetShopBackend.Controllers
 
         [HttpPost]
         [Route("tofilter")]
+        [Authorize]
         public async Task<IActionResult> CombineWithFilter([FromBody] ProductFilter productFilter)
         {
             return await Task.Run(() =>
@@ -168,6 +173,7 @@ namespace InternetShopBackend.Controllers
 
         [HttpPut]
         [Route("edit")]
+        [Authorize]
         public async Task<IActionResult> EditProduct([FromBody] EditProduct editProduct) 
         {
             return await Task.Run(() =>
@@ -208,6 +214,7 @@ namespace InternetShopBackend.Controllers
 
         [HttpDelete]
         [Route("delete")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct([FromBody] DeleteProduct deleteProduct)
         {
             return await Task.Run(() =>
@@ -232,6 +239,7 @@ namespace InternetShopBackend.Controllers
 
         [HttpGet]
         [Route("get")]
+
         public async Task<IActionResult> GetProducts([FromQuery] int skipped)
         {
             return await Task.Run(() =>

@@ -1,16 +1,22 @@
 ﻿using InternetShopBackend.Data;
 using InternetShopBackend.Data.Entities;
+using InternetShopBackend.Data.Identity.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace InternetShopBackend.Services
 {
     public static class SeedAll
     {
+       
         public static void SeedFilter(this IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<EFContext>();
 
+
+                RoleManager<AppRole> _roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+                UserManager<AppUser> _userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
                 if (!context.Filters.Any())
                 {
 
@@ -111,7 +117,29 @@ namespace InternetShopBackend.Services
                     context.SaveChanges();
                 }
 
-                
+                if(!context.Users.Any())
+                {
+                    AppRole role = new AppRole
+                    {
+                        Name = "ADMIN"
+                    };
+
+                    var resRole = _roleManager.CreateAsync(role).Result;
+
+                    AppUser user = new AppUser
+                    {
+                        UserName = "admin@gmail.com",
+                        Email = "admin@gmail.com",
+                    };
+
+                    var resUser = _userManager.CreateAsync(user, "#RFFa3#@4foif").Result;
+
+                    if(resRole.Succeeded && resUser.Succeeded)
+                    {
+                        var roleAdd = _userManager.AddToRoleAsync(user, "ADMIN").Result;
+                    }
+
+                }
             }
 
         }

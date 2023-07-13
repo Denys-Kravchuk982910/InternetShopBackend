@@ -1,10 +1,14 @@
 ﻿using InternetShopBackend.Data.Configuration;
 using InternetShopBackend.Data.Entities;
+using InternetShopBackend.Data.Identity.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternetShopBackend.Data
 {
-    public class EFContext : DbContext
+    public class EFContext : IdentityDbContext<AppUser, AppRole, long, IdentityUserClaim<long>, AppUserRole,
+        IdentityUserLogin<long>, IdentityRoleClaim<long>, IdentityUserToken<long>>
     {
         public DbSet<AppProduct> Products { get; set; }
         public DbSet<AppStory> Stories { get; set; }
@@ -15,6 +19,9 @@ namespace InternetShopBackend.Data
         public DbSet<AppFilterProduct> FilterProducts { get; set; }
         public DbSet<AppOrder> Orders { get; set; }
         public DbSet<AppOrderProduct> OrderProducts { get; set; }
+        public DbSet<AppUser> Users { get; set; }
+        public DbSet<AppRole> Roles { get; set; }
+        public DbSet<AppUserRole> UserRoles { get; set; }
         public EFContext(DbContextOptions opts) : base(opts)
         {
 

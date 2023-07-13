@@ -1,6 +1,7 @@
 ﻿using InternetShopBackend.Data;
 using InternetShopBackend.Data.Entities;
 using InternetShopBackend.Modals;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace InternetShopBackend.Controllers
         }
         [HttpPost]
         [Route("add")]
+        [Authorize]
         public async Task<IActionResult> AddPost([FromBody] AddPostModal addPost)
         {
             return await Task.Run(() =>
@@ -41,6 +43,7 @@ namespace InternetShopBackend.Controllers
         }
         [HttpDelete]
         [Route("delete")]
+        [Authorize]
         public async Task<IActionResult> DeletePost([FromBody] DeletePostModal deletePost)
         {
             return await Task.Run(() =>

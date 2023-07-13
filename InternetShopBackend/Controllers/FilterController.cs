@@ -2,6 +2,7 @@
 using InternetShopBackend.Data;
 using InternetShopBackend.Data.Entities;
 using InternetShopBackend.Modals;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,8 @@ namespace InternetShopBackend.Controllers
 
         [HttpPost]
         [Route("add")]
+        [Authorize]
+
         public async Task<IActionResult> AddFilter([FromBody] AddFilter addFilter)
         {
             return await Task.Run(() =>
@@ -38,6 +41,8 @@ namespace InternetShopBackend.Controllers
         }
         [HttpDelete]
         [Route("delete")]
+        [Authorize]
+
         public async Task<IActionResult> DeleteFilter([FromBody] DeleteFilter deleteFilter)
         {
             return await Task.Run(() =>
