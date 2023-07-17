@@ -74,5 +74,19 @@ namespace InternetShopBackend.Controllers
                 return Ok(result);
             });
         }
+
+        [HttpGet]
+        [Route("getallfilters")]
+        public async Task<IActionResult> GetAllFilters()
+        {
+            return await Task.Run(() =>
+            {
+                var filters = _context.Filters.Where(x => x.ParentId > 1).Select(x => new {
+                    Id = x.Id,
+                    Title = x.Title
+                }).ToList();
+                return Ok(filters);
+            });
+        }
     }
 }

@@ -25,12 +25,13 @@ namespace InternetShopBackend.Controllers
         {
             return await Task.Run(() =>
             {
+                AppUser user = _userManager.FindByEmailAsync(login.Email).Result;
+                bool isTrue = _userManager.CheckPasswordAsync(user, login.Password).Result;
                 IActionResult res = BadRequest(new
                 {
                     Message="Під час авторизації виникла помилка"
                 });
-                AppUser user = _userManager.FindByEmailAsync(login.Email).Result;
-                if(_userManager.CheckPasswordAsync(user, login.Password).Result)
+                if(isTrue)
                 {
 
                     res = Ok(new

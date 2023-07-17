@@ -35,23 +35,27 @@ namespace InternetShopBackend.Controllers
                 foreach (var target in targets!)
                 {
                     AppFilterProduct appFilterProduct = _context.FilterProducts.Include(x => x.Filter)
-                    .First(x => x.Filter.Title == target.size);
-                    var product = _context.Products.First(x => x.Id == target.id);
+                    .Include(x => x.Product)
+                    .First(x => x.Filter.Title == target.size && x.Product.Id == target.id);
+                    
                     if (appFilterProduct != null && appFilterProduct.Count > 0)
                     {
                         AppOrderProduct orderProduct = new AppOrderProduct
                         {
                             Size = int.Parse(target.size),
                             Order = order,
-                            Product = product,
+                            ProductId = appFilterProduct.ProductId,
                             FilterId = appFilterProduct.FilterId
                         };
 
 
                         _context.OrderProducts.Add(orderProduct);
                         _context.SaveChanges();
-
-                        appFilterProduct!.Count -= 1;
+                        if (
+                        appFilterProduct!.Count > 0)
+                        {
+                            appFilterProduct!.Count -= 1;
+                        }
                         _context.FilterProducts.Update(appFilterProduct);
                     }
 

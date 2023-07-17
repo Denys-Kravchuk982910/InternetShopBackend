@@ -41,7 +41,6 @@ const Product = () => {
 
             for(var i = 0; i < smallimg.length; i++) {
                 smallimg[i].addEventListener("click", (e) => {
-                    
                     MainImg.src = smallimg[i].src;
                 });
             }
@@ -114,7 +113,7 @@ const Product = () => {
                                         return (
                                         <Col xs={8} key={"smallimage" + index}>
                                             <div  className="small-img-col" onClick={() => {
-                                                setMainImg(BACKEND_URL + "images/" + element.image);
+                                                setMainImg(element.image);
                                             }}><img src={
                                                 BACKEND_URL + "images/" + element.image
                                             } width={"100%"} className="small-img" /></div>
