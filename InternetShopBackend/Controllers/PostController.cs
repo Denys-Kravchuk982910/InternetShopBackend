@@ -41,7 +41,7 @@ namespace InternetShopBackend.Controllers
                 });
             });
         }
-        [HttpDelete]
+        [HttpPost]
         [Route("delete")]
         [Authorize]
         public async Task<IActionResult> DeletePost([FromBody] DeletePostModal deletePost)
@@ -50,9 +50,16 @@ namespace InternetShopBackend.Controllers
             {
                 var post = _context.Posts.FirstOrDefault(x => x.Id == deletePost.Id);
                 IActionResult res = Ok();
-
+                
                 if(post != null)
                 {
+                    string imgPath = Path.Combine(Directory.GetCurrentDirectory(), "Images", post.Image);
+                    if (System.IO.File.Exists(imgPath))
+                    {
+                        System.IO.File.Delete(imgPath);
+                    }
+
+
                     _context.Posts.Remove(post);
                     _context.SaveChanges();
                     res = Ok(new
@@ -79,6 +86,21 @@ namespace InternetShopBackend.Controllers
             {
                 var posts = _context.Posts.Select(x => new
                 {
+                    Image = x.Image
+                });
+                return Ok(posts);
+            });
+        }
+
+        [HttpGet]
+        [Route("getallposts")]
+        public async Task<IActionResult> GetAllPosts()
+        {
+            return await Task.Run(() =>
+            {
+                var posts = _context.Posts.Select(x => new
+                {
+                    Id = x.Id,
                     Image = x.Image
                 });
                 return Ok(posts);

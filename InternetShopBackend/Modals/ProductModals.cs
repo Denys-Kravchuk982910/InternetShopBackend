@@ -52,6 +52,11 @@
         public int Id { get; set; }
     }
 
+    public class DelProductImages
+    {
+        public int Id { get; set; }
+    }
+
     public class GetProduct
     {
         public int Id { get; set; }

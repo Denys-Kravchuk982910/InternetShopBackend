@@ -112,15 +112,85 @@ namespace InternetShopBackend.Controllers
                 try
                 {
                     var item = _context.ProductImages
-                        .First(x => x.Id == productImage.Id);
+                        .FirstOrDefault(x => x.Id == productImage.Id);
                     string path = Path.Combine(Directory.GetCurrentDirectory(), "Images", item.Image);
-                    if(System.IO.File.Exists(path))
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
+                        }
+                        _context.ProductImages.Remove(item);
+                        _context.SaveChanges();
+                        res = Ok(new
+                        {
+                            Message = "Deleted successfully"
+                        });
+                }
+                catch (Exception ex)
+                {
+                    res = BadRequest(ex);
+                }
+
+                return res;
+            });
+        }
+
+        [HttpPost]
+        [Route("alldelimages")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAllProductImages([FromBody] DelProductImages productImages)
+        {
+            return await Task.Run(() =>
+            {
+                IActionResult res = null;
+                try
+                {
+                    var items = _context.ProductImages
+                        .Where(x => x.ProductId == productImages.Id).ToList();
+                    foreach (var item in items)
                     {
-                        System.IO.File.Delete(path);
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "Images", item.Image);
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
+                        }
+                        _context.ProductImages.Remove(item);
+                        _context.SaveChanges();
                     }
-                    _context.ProductImages.Remove(item);
-                    _context.SaveChanges();
-                    res = Ok(new {
+
+                    res = Ok(new
+                    {
+                        Message = "Deleted successfully"
+                    });
+                }
+                catch (Exception ex)
+                {
+                    res = BadRequest(ex);
+                }
+
+                return res;
+            });
+        }
+
+        [HttpPost]
+        [Route("alldelfilters")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAllFilters([FromBody] DelProductImages productImages)
+        {
+            return await Task.Run(() =>
+            {
+                IActionResult res = null;
+                try
+                {
+                    var items = _context.FilterProducts
+                        .Where(x => x.ProductId == productImages.Id).ToList();
+                    foreach (var item in items)
+                    {
+                        _context.FilterProducts.Remove(item);
+                        _context.SaveChanges();
+                    }
+
+                    res = Ok(new
+                    {
                         Message = "Deleted successfully"
                     });
                 }
@@ -147,14 +217,17 @@ namespace InternetShopBackend.Controllers
                     && x.FilterId == productFilter.FilterId);
                     if (item == null)
                     {
-                        AppFilterProduct appFilterProduct = new AppFilterProduct
+                        if (_context.Filters.Any(x => x.Id == productFilter.FilterId))
                         {
-                            FilterId = productFilter.FilterId,
-                            ProductId = productFilter.ProductId,
-                            Count = 1
-                        };
+                            AppFilterProduct appFilterProduct = new AppFilterProduct
+                            {
+                                FilterId = productFilter.FilterId,
+                                ProductId = productFilter.ProductId,
+                                Count = 1
+                            };
 
-                        _context.FilterProducts.Add(appFilterProduct);
+                            _context.FilterProducts.Add(appFilterProduct);
+                        }
                     }
                     else
                     {
@@ -171,7 +244,7 @@ namespace InternetShopBackend.Controllers
             });
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("edit")]
         [Authorize]
         public async Task<IActionResult> EditProduct([FromBody] EditProduct editProduct) 
@@ -185,17 +258,23 @@ namespace InternetShopBackend.Controllers
 
                     if (dbProduct != null)
                     {
+                        if(editProduct.Price != -1) 
+                            dbProduct.Price = editProduct.Price;
 
+                        if(editProduct.Description != "__empty__")
+                            dbProduct.Description = editProduct.Description;
                         
-                        dbProduct.Price = editProduct.Price;
-                        dbProduct.Description = editProduct.Description;
-                        dbProduct.Title = editProduct.Title;
+                        if (editProduct.Title != "__empty__")
+                            dbProduct.Title = editProduct.Title;
+
+                        if (editProduct.Brand != "__empty__")
+                            dbProduct.Brand = editProduct.Brand;
+
                         dbProduct.Count = editProduct.Count;
 
                         _context.Update(dbProduct);
 
                         _context.SaveChanges();
-
                     }
 
                     res = Ok(new
@@ -212,7 +291,7 @@ namespace InternetShopBackend.Controllers
             });
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("delete")]
         [Authorize]
         public async Task<IActionResult> DeleteProduct([FromBody] DeleteProduct deleteProduct)
@@ -222,8 +301,12 @@ namespace InternetShopBackend.Controllers
                 IActionResult res = null;
                 try
                 {
-                    _context.Products.Remove(_context.Products.First(x => x.Id == deleteProduct.Id));
-                    _context.SaveChanges();
+                    var product = _context.Products.FirstOrDefault(x => x.Id == deleteProduct.Id);
+                    if(product != null)
+                    {
+                        _context.Products.Remove(product);
+                        _context.SaveChanges();
+                    }
                     res = Ok(new
                     {
                         Message = "Deleted Successfully"
@@ -482,17 +565,22 @@ namespace InternetShopBackend.Controllers
 
             return await Task.Run(() =>
             {
+                IActionResult res = BadRequest();
+
                 var filters = _context.Products.Include(x => x.FilterProducts)
-                .ThenInclude(x => x.Filter).First(x => x.Id == id)
+                .ThenInclude(x => x.Filter).FirstOrDefault(x => x.Id == id)?
                 .FilterProducts.Where(x => x.Filter.ParentId == 4 && x.Count > 0).Select(x => x.Filter);
-
-                var sizes = filters.Select(x => new
+                if (filters != null)
                 {
-                    Id = x.Id,
-                    Size = x.Title
-                });
+                    var sizes = filters.Select(x => new
+                    {
+                        Id = x.Id,
+                        Size = x.Title
+                    });
+                    res = Ok(sizes);
+                }
 
-                return Ok(sizes);
+                return res;
             });
         }
     }

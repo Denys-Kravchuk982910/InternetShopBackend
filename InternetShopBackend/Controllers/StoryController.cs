@@ -46,7 +46,7 @@ namespace InternetShopBackend.Controllers
                 });
             });
         }
-        [HttpDelete]
+        [HttpPost]
         [Route("delete")]
         [Authorize]
         public async Task<IActionResult> DeleteStory([FromBody] DeleteStoryModal deleteStory)
@@ -100,6 +100,22 @@ namespace InternetShopBackend.Controllers
                     stories.Reverse();
                 }
 
+                return Ok(stories);
+            });
+        }
+
+        [HttpGet]
+        [Route("getallstories")]
+        public async Task<IActionResult> GetAllStories()
+        {
+            return await Task.Run(() =>
+            {
+                var stories = _context.Stories.Select(x => new
+                {
+                    Title = x.Title,
+                    Id = x.Id,
+                    Image=x.Image
+                }).ToList();
                 return Ok(stories);
             });
         }

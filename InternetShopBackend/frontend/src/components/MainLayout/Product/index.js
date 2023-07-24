@@ -18,7 +18,7 @@ const Product = () => {
     const fillProduct = async () => {
         let res = await axiosService.getProductById(pr_id);
         setProduct(res);
-        setMainImg(res.images[0].image);
+        setMainImg((res.images && res.images[0] ? res.images[0].image : ""));
     }
 
 

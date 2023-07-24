@@ -93,7 +93,7 @@ const Main = () => {
                             <Card title={element.title}
                             id={element.id} 
                             brand={element.brand} 
-                            image={BACKEND_URL + "images/" + element.images[0].image} 
+                            image={BACKEND_URL + "images/" + (element.images && element.images[0] ? element.images[0].image : "")} 
                             price={element.price} />
                         </Col>);
                     })}
@@ -120,7 +120,7 @@ const Main = () => {
                     {topItems.map((element, index) => {
                         return (<SwiperSlide key={"swiper" + index}>
                             <CardWA title={element.title} brand={element.brand} image={
-                                BACKEND_URL + "images/" + element.images[0].image
+                                BACKEND_URL + "images/" + (element.images && element.images[0] ? element.images[0].image : "")
                             } price={element.price} id={element.id}/>
                         </SwiperSlide>);
                     })}

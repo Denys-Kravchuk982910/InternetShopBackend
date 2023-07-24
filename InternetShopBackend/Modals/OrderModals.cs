@@ -17,4 +17,11 @@
         public int id { get; set; }
         public string size { get; set; }
     }
+
+
+    public class OrderAcceptance
+    {
+        public bool Accept { get; set; }
+        public int Id { get; set; }
+    }
 }

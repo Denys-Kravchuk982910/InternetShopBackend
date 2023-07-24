@@ -35,8 +35,6 @@ namespace InternetShopBackend.Validators
                 .NotNull().WithMessage("Поле не може бути null-значення")
                 .NotEmpty().WithMessage("Поле не може бути пустим!")
                 .MinimumLength(2).WithMessage("Кількість не може бути меншою за 2");
-            RuleFor(x => x.Price)
-                .GreaterThanOrEqualTo(0).WithMessage("Поле не може набувати від'ємних значень");
             RuleFor(x => x.Count)
                .GreaterThanOrEqualTo(0).WithMessage("Поле не може набувати від'ємних значень");
         }

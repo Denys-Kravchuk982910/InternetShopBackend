@@ -24,7 +24,6 @@ namespace InternetShopBackend.Controllers
         [HttpPost]
         [Route("add")]
         [Authorize]
-
         public async Task<IActionResult> AddFilter([FromBody] AddFilter addFilter)
         {
             return await Task.Run(() =>
@@ -39,16 +38,28 @@ namespace InternetShopBackend.Controllers
                 });
             });
         }
-        [HttpDelete]
+        
+        [HttpPost]
         [Route("delete")]
         [Authorize]
-
         public async Task<IActionResult> DeleteFilter([FromBody] DeleteFilter deleteFilter)
         {
             return await Task.Run(() =>
             {
-                _context.Filters.Remove(_context.Filters.First(x => x.Id == deleteFilter.Id));
-                _context.SaveChanges();
+                var item = _context.Filters.FirstOrDefault(x => x.Id == deleteFilter.Id);
+                if (item != null)
+                {
+                    var filters = _context.Filters.Where(x => x.ParentId == deleteFilter.Id);
+                    foreach (var filter in filters)
+                    {
+                        _context.Filters.Remove(filter);
+                    }
+                    _context.SaveChanges();
+
+
+                    _context.Filters.Remove(_context.Filters.First(x => x.Id == deleteFilter.Id));
+                    _context.SaveChanges();
+                }
                 return Ok(new
                 {
                     Message = "Deleted successfully"
@@ -85,6 +96,44 @@ namespace InternetShopBackend.Controllers
                     Id = x.Id,
                     Title = x.Title
                 }).ToList();
+                return Ok(filters);
+            });
+        }
+
+        [HttpGet]
+        [Route("getgroupedfilters")]
+        public async Task<IActionResult> GetAllFiltersByGroups()
+        {
+            return await Task.Run(() =>
+            {
+                var filters = _context.Filters.GroupBy(x => x.ParentId).Where(x => x.Key > 1)
+                .Select(x => new
+                {
+                    Key = x.Key,
+                    Name = _context.Filters.First(a => a.Id == x.Key).Title,
+                    Items = x.Select(y => new
+                    {
+                        Id = y.Id,
+                        Title = y.Title,
+                    }).ToList()
+                });
+                return Ok(filters);
+            });
+        }
+
+        [HttpGet]
+        [Route("getfiltermenu")]
+        public async Task<IActionResult> GetFiltersMenu()
+        {
+            return await Task.Run(() =>
+            {
+                var filters = _context.Filters.Where(x => x.ParentId <= 1 || x.Id == 1)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Title = x.Title
+                });
+
                 return Ok(filters);
             });
         }
