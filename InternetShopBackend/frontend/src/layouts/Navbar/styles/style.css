@@ -243,6 +243,29 @@ border-radius: 4px;
     display: none;
 }
 
+.cart-count {
+    display: flex;
+    gap: 10px;
+    justify-content: start;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px 0;
+    height: fit-content;
+    width: fit-content;
+}
+
+.cart-number {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.cartPlus:hover,
+.cartMinus:hover {
+    cursor: pointer;
+}
+
 @media (max-width: 1300px) and (min-width: 1001px) {
     .nav-element {
         display: block;

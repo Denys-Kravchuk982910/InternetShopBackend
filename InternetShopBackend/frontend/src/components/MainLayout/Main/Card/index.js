@@ -35,9 +35,8 @@ export const CardWA = ({ image, brand, price, title, id }) => {
 const Card = ({ image, brand, price, title, id }) => {
 
     const [settings, setSettings] = useState({
-        open: false,
-        btnOpen: false,
-        isFlag: false
+        isFlag: false,
+        isAdded: false
     });
     const navigate = useNavigate();
     const [productId, setProductId] = useCookie('pr_id', 0);
@@ -55,13 +54,14 @@ const Card = ({ image, brand, price, title, id }) => {
             price: res.price,
             description: res.description,
             image: image,
+            count: res.count,
             size: parseInt(sizes[size - 1].size)
         }));
 
         setSettings({
             ...settings,
             isFlag: !settings.isFlag,
-            btnOpen: false,
+            isAdded: true
         });
         if (isBuy) {
             navigate("/order")
@@ -83,10 +83,12 @@ const Card = ({ image, brand, price, title, id }) => {
         e.preventDefault();
         e.stopPropagation();
         fillSizes();
+
         setSettings({
             ...settings,
             isFlag: !settings.isFlag
         });
+
         setBuy(false);
     }
 
@@ -105,12 +107,20 @@ const Card = ({ image, brand, price, title, id }) => {
 
     const fillSizes = async () => {
         let data = await axiosService.getSizes(id);
+        
+        for (const item of carts) {
+            data = data.filter(x => parseInt(x.size) !== item.size);
+        }
+
         setArrSizes(data);
     }
 
     const onSelectItem = (e) => {
         let value = e.target.value;
         addToCartProduct(value);
+
+        let select = document.getElementsByClassName("select")[0];
+        select.value = 0;
     }
 
     const onSelectClick = (e) => {
@@ -119,40 +129,35 @@ const Card = ({ image, brand, price, title, id }) => {
     }
 
     const onMouseHandler = (e) => {
-        // if(!settings.btnOpen) {
         if (settings.isFlag) {
             setSettings({
                 ...settings,
                 isFlag: !settings.isFlag,
-                open: false,
+                isAdded: false
             });
             return;
         }
         setSettings({
             ...settings,
-            open: false,
+            isAdded: false
         });
-        // }
     }
 
     return (<>
+        <section id="#product1" data-id={id} className="section-p1" onMouseLeave={() => {setSettings(
+            {
+                ...settings, 
+                isAdded: false
+            }
+        )}}>
 
-        <section id="product1" data-id={id} onClick={() => {
-
-
-        }} className="section-p1">
-            <div className={classNames("product-card", { "product-card-hover": settings.open })}
-                onMouseEnter={() => {
-                    setSettings({
-                        ...settings,
-                        open: true
-                    })
-                }}
+            <div className={classNames("product-card")}
                 onMouseLeave={onMouseHandler}
                 onClick={onLinkToProduct}>
                 <div className="image-container">
                     <img src={image} alt="Product Image" />
                 </div>
+                
                 <div className="product-details">
                     <div className="des">
                         <span className="adidas">{brand}</span>
@@ -161,28 +166,20 @@ const Card = ({ image, brand, price, title, id }) => {
                         <p className="price">{price} <span className="price-title">грн</span></p>
                     </div>
                 </div>
+
                 <div>
-
-
-                    <div className={classNames({ "d-none": settings.isFlag}, {"d-none": carts.filter(x => x.id == id).length != 0})}>
+                    <div className={classNames({ "d-none": settings.isFlag })}>
                         <button className="button-buy"
                             onClick={onBuyButtonClick}>ПРИДБАТИ В 1 КЛІК</button>
                         <button className="button-cart"
                             onClick={onCartButtonClick}>ДОДАТИ В КОШИК</button>
                     </div>
 
-                    <div className={classNames({ "d-none": settings.isFlag}, { "d-none" : carts.filter(x => x.id == id).length == 0  })}>
+                    <div className={classNames({ "d-none": !settings.isAdded})}>
                         <Alert message="Товар додано у кошик." type="success" />
                     </div>
 
                     <select
-
-                        onMouseDown={() => {
-                            setSettings({
-                                ...settings,
-                                btnOpen: true
-                            });
-                        }}
                         style={{
                             marginTop: '10px',
                             fontSize: '1.5em'
@@ -195,7 +192,6 @@ const Card = ({ image, brand, price, title, id }) => {
                             )
                         })}
                     </select>
-
                 </div>
             </div>
         </section>

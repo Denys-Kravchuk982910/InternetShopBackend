@@ -7,6 +7,7 @@ import { BACKEND_URL } from "../../../constants/default";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, changeSize } from "../../../redux/reducers/cartReducer";
 import { Link, useNavigate } from "react-router-dom";
+import classNames from "classnames";
 
 const Product = () => {
 
@@ -15,6 +16,7 @@ const Product = () => {
 
     const [size, setSize] = useState(0);
     const [sizes, setArrSizes] = useState([]);
+
     const fillProduct = async () => {
         let res = await axiosService.getProductById(pr_id);
         setProduct(res);
@@ -24,9 +26,13 @@ const Product = () => {
 
     const fillSizes = async (id) => {
         let data = await axiosService.getSizes(id);
-        setSize(carts.filter(x => x.id == id).length > 0
-        ? parseInt(carts.filter(x => x.id == id)[0].size) 
-        : parseInt(data[0].size));
+        // setSize(carts.filter(x => x.id === id).length > 0
+        // ? parseInt(carts.filter(x => x.id === id)[0].size) 
+        // : parseInt(data[0].size));
+
+        for (const item of carts) {
+            data = data.filter(x => parseInt(x.size) !== parseInt(item.size));
+        }
 
         setArrSizes(data);
     }
@@ -50,8 +56,15 @@ const Product = () => {
 
     }, []);
 
+    useEffect(() => {
+        if(pr_id){
+            fillSizes(pr_id);
+        }
+    }, [carts]);
+
     const [mainImg, setMainImg] = useState("");
     const dispatch = useDispatch();
+
     const addToCartProduct = async() => {
         let res = await axiosService.getProductById(pr_id);
 
@@ -63,6 +76,9 @@ const Product = () => {
             image: BACKEND_URL + "images/" + res.images[0].image,
             size: size
         }));
+
+        setSize(0);
+        fillSizes(pr_id);
     }
 
     let navigate = useNavigate();
@@ -106,6 +122,7 @@ const Product = () => {
                                 <div className="image-product-container">
                                     <img src={mainImg && BACKEND_URL + "images/" + mainImg} width={"100%"} id="MainImg" />
                                 </div>
+
                                 <div className="small-img-group">
                                     <Row>
                                     
@@ -135,26 +152,29 @@ const Product = () => {
                                 <h2>{product.price} грн</h2>
                                 <h5>Оберіть розмір</h5>
                                 <select value={size} className="select" onChange={onSelectItem}>
+                                    <option value={0}>Оберіть розмір</option>
                                     {sizes.map((element, index) => {
                                         return (
                                             <option key={"size" + index}>{element.size}</option>
                                         )
                                     })}
                                 </select>
-                                {carts.filter(x => x.id == pr_id).length != 1 ?<>
+                                <div className={classNames({"d-none" : size === 0})}>
                                     <button className="button-cart-product" onClick={onCartButtonClick}>ДОДАТИ В КОШИК</button><br />
                                     <button className="button-buy-product" onClick={onBuyButtonClick}>ПРИДБАТИ В 1 КЛІК</button><br />
-                                </> :
-                                
-                                <>
-                                <div className="alert-image">
-
-                                    <Alert message="Товар додано у кошик." type="success" />
-                                    <Link to={"/order"}>
-                                        Оформити замовлення
-                                    </Link>
                                 </div>
-                                </>}
+                                
+                                
+                                {carts.filter(x => x.id === pr_id).length >= 1 ? <>
+                                    <div className="alert-image">
+
+                                        <Alert message="Товар додано у кошик." type="success" />
+                                        <Link to={"/order"}>
+                                            Оформити замовлення
+                                        </Link>
+                                    </div>
+                                </> : <></>}
+                                
                                 
                                 <h4>Інформація про кросівки</h4>
                                 <span>{product.description}</span>

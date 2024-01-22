@@ -90,6 +90,19 @@
   margin: 20px auto;
 }
 
+.product-card:hover {
+  transform: translateY(-50px);
+  height: 450px;
+}
+
+.product-card:hover .button-cart {
+  opacity: 1;
+}
+
+.product-card:hover .button-buy {
+  opacity: 1;
+}
+
 .filter-button {
   display: none;
   width: 100%;
@@ -185,22 +198,6 @@
     padding:0px ;
   }
 }
-/* Hover events */
-.product-card-hover {
-  transform: translateY(-50px);
-  height: 450px;
-  
-}
-.product-card-hover .button-cart {
-
-  opacity: 1;
-  
-}
-
-.product-card-hover .button-buy{
-  opacity: 1;
-}
-
 
 .image-container {
   height: 200px;

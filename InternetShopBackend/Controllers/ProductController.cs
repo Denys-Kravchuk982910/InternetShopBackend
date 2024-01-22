@@ -346,7 +346,7 @@ namespace InternetShopBackend.Controllers
                             Image = y.Image,
                             Id = y.Id,
                             ProductId = y.ProductId
-                        }).ToList()
+                        }).OrderBy(y => y.Id).ToList()
                     })
                     .OrderByDescending(x => x.Id)
                     .Skip(12 * skipped).Take(12).ToList();
@@ -455,7 +455,7 @@ namespace InternetShopBackend.Controllers
                                 Image = y.Image,
                                 Id = y.Id,
                                 ProductId = y.ProductId
-                            }).ToList()
+                            }).OrderBy(y => y.Id).ToList()
                         })
                         .DistinctBy(x => x.Id)
                         .OrderByDescending(x => x.Id)

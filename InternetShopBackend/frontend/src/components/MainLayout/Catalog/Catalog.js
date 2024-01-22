@@ -11,6 +11,7 @@ import { increment, setNullItem } from '../../../redux/reducers/pageReducer';
 
 const Catalog = () => {
     const dispatch = useDispatch();
+
     const onOpenFilter = (e) => {
         setOpenMobileFilter(!openMobileFilter);
 
@@ -31,26 +32,42 @@ const Catalog = () => {
 
 
     const fillProducts = async () => {
-        let count = (await axiosService.getProductCountByFilter({
-            skipped: page-1,
+        // let count = (await axiosService.getProductCountByFilter({
+        //     skipped: page-1,
+        //     keys: filters
+        // })).data;
+
+        let result = await axiosService.setProductFilter({
+            skipped: 0, 
             keys: filters
-        })).data;
-        if (count != products.length || page-1 == 0) {
+        });
+
+        setProducts([...result.data]);
+        
+        // if (page-1 !== 0) {
             
-            let result = await axiosService.setProductFilter({
-                skipped:
-                page-1, 
-                keys: filters
-            });
+        //     let result = await axiosService.setProductFilter({
+        //         skipped: page-1, 
+        //         keys: filters
+        //     });
 
-            if(page-1 == 0) {
-                setProducts([...result.data]);
-            }
-            else {
-                setProducts([...products, ...result.data]);
-            }
+        //     if(page-1 === 0) {
+        //         setProducts([...result.data]);
+        //     }
+        //     else {
+        //         setProducts([...products, ...result.data]);
+        //     }
 
-        }
+        // }
+    }
+
+    const addProductsToList = async (page) => {
+        let result = await axiosService.setProductFilter({
+            skipped: page - 1, 
+            keys: filters
+        });
+
+        setProducts([...products, ...result.data]);
     }
 
     const incrementFunction = async() => {
@@ -76,8 +93,10 @@ const Catalog = () => {
     }, []);
 
     useEffect(() => {
-        fillProducts();
-    },[page])
+        if(page !== 1) {
+            addProductsToList(page);
+        }
+    }, [page]);
 
     useEffect(() => {
         window.scrollTo(0,0);
@@ -105,8 +124,22 @@ const Catalog = () => {
                 <Col md={24}>
                 <Row className='goods-filter'>
                     {products.map((element, index) => {
-                        return (<Col key={index+"catalogitems" + index} xl={8} lg={12} md={12} xs={24} sm={12}>
-                            <Card id={element.id} title={element.title} brand={element.brand} image={BACKEND_URL + "images/" + element.images[0].image} price={element.price} />
+                        return (
+                        <Col 
+                            key={index+"catalogitems" + index} 
+                            xl={8} 
+                            lg={12} 
+                            md={12} 
+                            xs={24} 
+                            sm={12}
+                        >
+                            <Card 
+                                id={element.id} 
+                                title={element.title} 
+                                brand={element.brand} 
+                                image={BACKEND_URL + "images/" + element.images[0].image} 
+                                price={element.price} 
+                            />
                         </Col>);
                     })}                    
                 </Row>

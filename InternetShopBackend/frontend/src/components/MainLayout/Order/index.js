@@ -54,7 +54,7 @@ const Order = () => {
     const getSum = () => {
         let sum = 0;
         let arr = carts.map(el => {
-            sum += el.price;
+            sum += (el.price * el.number);
             return el.price
            })
 
@@ -103,14 +103,9 @@ const Order = () => {
                                                         </span>
                                                     </div>
 
-                                                    <div className="change-size">
-                                                        <span onClick={() => {
-                                                            setProductId(element.id);
-                                                            navigation("/Product");
-                                                            window.scrollTo(0,0);
-                                                        }}>
-                                                           {element.size == 0 ? <>Встановити розмір вручну</> :
-                                                            <>Змінити розмір</>}
+                                                    <div>
+                                                        <span>
+                                                            Кількість: {element.number}
                                                         </span>
                                                     </div>
                                                 </div>
