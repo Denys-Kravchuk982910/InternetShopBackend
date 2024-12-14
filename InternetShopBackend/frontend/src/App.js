@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import {routes} from "./routes/MainRoutes/mainRoutes.js"
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +42,7 @@ const App = () => {
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <Suspense fallback={<div>Loading...</div>}>
-        <BrowserRouter>
+        <Router>
           <Routes>
             <Route path='/' element={<MainLayout />}>
               {
@@ -54,7 +54,7 @@ const App = () => {
               }
             </Route>
           </Routes>
-        </BrowserRouter>
+        </Router>
       </Suspense>
     </GoogleOAuthProvider>
   );
