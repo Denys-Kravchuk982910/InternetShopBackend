@@ -42,7 +42,7 @@ const Blog = () => {
         },
     ]);
 
-    const serverLink = "/"; // BACKEND_URL + "images/";
+    const serverLink = ""; // BACKEND_URL + "images/";
 
     // const onLoadStories = async () => {
     //     let res = await axiosService.getStories();
