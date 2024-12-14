@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "title": "Puma",
+        "price": 1000,
+        "description": "Puma shoes",
+        "count": 10,
+        "rating": 3,
+        "brand": "Puma",
+        "images": [
+            {
+                "image": "product1.png",
+                "id": 4,
+                "productId": 1
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Adidas",
+        "price": 1000,
+        "description": "Adidas shoes",
+        "count": 10,
+        "rating": 3,
+        "brand": "Adidas",
+        "images": [
+            {
+                "image": "product2.png",
+                "id": 5,
+                "productId": 2
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Nike",
+        "price": 1000,
+        "description": "Nike shoes",
+        "count": 10,
+        "rating": 3,
+        "brand": "Nike",
+        "images": [
+            {
+                "image": "product3.png",
+                "id": 6,
+                "productId": 3
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Nike",
+        "price": 1500,
+        "description": "Nike shoes",
+        "count": 10,
+        "rating": 3,
+        "brand": "Nike",
+        "images": [
+            {
+                "image": "product4.png",
+                "id": 7,
+                "productId": 4
+            }
+        ]
+    }
+]

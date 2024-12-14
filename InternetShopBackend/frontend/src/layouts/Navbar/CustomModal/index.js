@@ -14,10 +14,10 @@ const CustomModal = ({ text, price, image, description, id }) => {
     }
 
     const onPlusNumber = () => {
-        let input = carts.filter(x => x.id === id)[0].number;
-        if (input < carts.filter(x => x.id === id)[0].count ) {
-            dispatch(changeCount({id: id, count: 1}))
-        }
+        // let input = carts.filter(x => x.id === id)[0].number;
+        // if (input < carts.filter(x => x.id === id)[0].count ) {
+        // }
+        dispatch(changeCount({id: id, count: 1}))
     }
 
     const onMinusNumber = () => {

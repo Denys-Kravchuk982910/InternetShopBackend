@@ -7,6 +7,7 @@ import axiosService from '../../../axios/axiosService';
 import { useDispatch, useSelector } from 'react-redux';
 import { BACKEND_URL } from '../../../constants/default';
 import { increment, setNullItem } from '../../../redux/reducers/pageReducer';
+import productData from '../../../data/products.json';
 
 
 const Catalog = () => {
@@ -37,12 +38,7 @@ const Catalog = () => {
         //     keys: filters
         // })).data;
 
-        let result = await axiosService.setProductFilter({
-            skipped: 0, 
-            keys: filters
-        });
-
-        setProducts([...result.data]);
+        setProducts([...productData]);
         
         // if (page-1 !== 0) {
             
@@ -62,12 +58,12 @@ const Catalog = () => {
     }
 
     const addProductsToList = async (page) => {
-        let result = await axiosService.setProductFilter({
-            skipped: page - 1, 
-            keys: filters
-        });
+        // let result = await axiosService.setProductFilter({
+        //     skipped: page - 1, 
+        //     keys: filters
+        // });
 
-        setProducts([...products, ...result.data]);
+        // setProducts([...products, ...result.data]);
     }
 
     const incrementFunction = async() => {
@@ -79,7 +75,7 @@ const Catalog = () => {
     }
 
     const onClickEvent = () => {
-        incrementFunction();
+        // incrementFunction();
     }
 
     useEffect(() => {
@@ -92,17 +88,19 @@ const Catalog = () => {
         };
     }, []);
 
-    useEffect(() => {
-        if(page !== 1) {
-            addProductsToList(page);
-        }
-    }, [page]);
+    // useEffect(() => {
+    //     if(page !== 1) {
+    //         addProductsToList(page);
+    //     }
+    // }, [page]);
 
     useEffect(() => {
         window.scrollTo(0,0);
         fillProducts();
         dispatch(setNullItem());
-    }, [filters]);
+    }, []);
+
+    const serverLink = ''; // BACKEND_URL + "images/"
 
     return (<>
         <Row className='filter-button'>
@@ -137,7 +135,7 @@ const Catalog = () => {
                                 id={element.id} 
                                 title={element.title} 
                                 brand={element.brand} 
-                                image={BACKEND_URL + "images/" + element.images[0].image} 
+                                image={serverLink + element.images[0].image} 
                                 price={element.price} 
                             />
                         </Col>);

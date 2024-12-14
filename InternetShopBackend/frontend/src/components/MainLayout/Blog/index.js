@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Row, Col } from "antd";
 import "./styles/blog.css";
 import { Link } from "react-router-dom";
@@ -18,20 +20,42 @@ const Blog = () => {
         img: ""
     });
 
-    const [stories, setStories] = useState([]);
-    const [posts, setPosts] = useState([]);
-    const onLoadStories = async () => {
-        let res = await axiosService.getStories();
-        setStories(res);
+    const [stories, setStories] = useState([
+        {
+            title: 'Локація',
+            images: [{image: 'first1.jpg'}, {image: 'about1.jpg'}, {image: 'about2.jpg'}],
+        },
+        {
+            title: 'Доставка',
+            images: [{image: 'first2.jpg'}, {image: 'about2.jpg'}, {image: 'about3.jpg'}],
+        },
+    ]);
+    const [posts, setPosts] = useState([
+        {
+            image: 'about1.jpg'
+        },
+        {
+            image: 'about2.jpg'
+        },
+        {
+            image: 'about3.jpg'
+        },
+    ]);
 
-        let postData = await axiosService.getPosts();
-        setPosts(postData);
-    }
+    const serverLink = "/"; // BACKEND_URL + "images/";
+
+    // const onLoadStories = async () => {
+    //     let res = await axiosService.getStories();
+    //     setStories(res);
+
+    //     let postData = await axiosService.getPosts();
+    //     setPosts(postData);
+    // }
 
 
-    useEffect(() => {
-        onLoadStories();
-    }, []);
+    // useEffect(() => {
+    //     onLoadStories();
+    // }, []);
 
     useEffect(() => {
         let stories = document.getElementsByClassName("story-container");
@@ -61,7 +85,7 @@ const Blog = () => {
         let target = e.target.closest(".story-container").dataset.id;
         
         let items = stories[target].images.map((element) => {
-            return BACKEND_URL + "Images/" + element.image
+            return serverLink + element.image
         });
 
         setStory({
@@ -77,7 +101,7 @@ const Blog = () => {
                     <Col lg={10} md={24}>
                         <div className="logo-container">
                             <div className="image-con" >
-                                <img src="Logo.png" />
+                                <img src="Logo.png" alt="" />
                             </div>
                         </div>
                     </Col>
@@ -107,7 +131,11 @@ const Blog = () => {
                                 <Col md={24}>
                                     <div className="story-container" data-id={index}>
                                         <div className="img-con">
-                                            <img className="bar-img" src={BACKEND_URL + "images/" + (element.images[0] ? element.images[0].image : <></>) } />
+                                            <img
+                                                className="bar-img"
+                                                src={serverLink + (element.images[0] ? element.images[0].image : <></>) }
+                                                alt=""
+                                            />
                                         </div>
                                         <p>{element.title}</p>
                                     </div>
@@ -122,7 +150,7 @@ const Blog = () => {
                     {posts && posts.map((element, index) => {
                         return (<Col xs={24} sm={12} md={12} lg={8} key={"post" + index}>
                             <div className="image-container-story">
-                                <img src={BACKEND_URL + "images/" + element.image} className="zoom-after-hover"/>
+                                <img src={serverLink + element.image} className="zoom-after-hover" alt=""/>
                             </div>
                         </Col>);
                     })}

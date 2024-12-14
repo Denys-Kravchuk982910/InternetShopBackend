@@ -21,6 +21,7 @@ const Order = () => {
     const [visible, setVisible] = useState(true);
     const [orderId, setOrderId] = useState(0);
     const dispatch = useDispatch();
+
     const pushOrder = async (values) => {
 
         let obj = {...values, 
@@ -30,15 +31,15 @@ const Order = () => {
                     id: item.id
                 }
             }))])};
-        let res = await axiosService.pushOrder(
-            obj);
-        setOrderId(res.id);
+        // let res = await axiosService.pushOrder(
+        //     obj);
+        setOrderId(1);
         localStorage.setItem("cart", []);
         dispatch(clearFilters());
         dispatch(setNullItem())
 
-        let products = await axiosService.setProduct(0);
-        dispatch(setProducts(products));
+        // let products = await axiosService.setProduct(0);
+        // dispatch(setProducts([]));
     }
 
     const onSubmitHandler = (values) => {
@@ -81,7 +82,7 @@ const Order = () => {
                                         <Row>
                                             <Col xs={6}>
                                                 <div className="card-checked-image">
-                                                    <img src={element.image} />
+                                                    <img src={element.image} alt="" />
                                                 </div>
                                             </Col>
                                             <Col xs={17} offset={1}>

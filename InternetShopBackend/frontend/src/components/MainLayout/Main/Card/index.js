@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 import "./styles/style.css";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +8,7 @@ import axiosService from "../../../../axios/axiosService";
 import { Alert } from "antd";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import productSizes from '../../../../data/sizes.json'; 
 
 
 export const CardWA = ({ image, brand, price, title, id }) => {
@@ -21,7 +23,7 @@ export const CardWA = ({ image, brand, price, title, id }) => {
 
     }}>
         <div className="pro">
-            <img src={image} />
+            <img src={image} alt="" />
             <div className="des">
                 <span className="adidas">{brand}</span>
                 <h5 className="Nike-Air-Jordan-4">{title}</h5>
@@ -32,30 +34,30 @@ export const CardWA = ({ image, brand, price, title, id }) => {
 }
 
 
-const Card = ({ image, brand, price, title, id }) => {
-
+const Card = ({ image, brand, price, title, id, description, count }) => {
     const [settings, setSettings] = useState({
         isFlag: false,
         isAdded: false
     });
     const navigate = useNavigate();
     const [productId, setProductId] = useCookie('pr_id', 0);
-    const [sizes, setArrSizes] = useState([]);
+    // const [sizes, setArrSizes] = useState([]);
     const [isBuy, setBuy] = useState(false);
     const carts = useSelector(cart => cart.cart);
 
     const dispatch = useDispatch();
 
     const addToCartProduct = async (size) => {
-        let res = await axiosService.getProductById(id);
+        //let res = await axiosService.getProductById(id);
+
         dispatch(addToCart({
-            id: res.id,
-            title: res.title,
-            price: res.price,
-            description: res.description,
+            id: id,
+            title: title,
+            price: price,
+            description: description,
             image: image,
-            count: res.count,
-            size: parseInt(sizes[size - 1].size)
+            count: count,
+            size: parseInt(productSizes[size - 1].size)
         }));
 
         setSettings({
@@ -64,6 +66,8 @@ const Card = ({ image, brand, price, title, id }) => {
             isAdded: true
         });
         if (isBuy) {
+            window.scrollTo(0, 0);
+
             navigate("/order")
         }
     }
@@ -96,7 +100,7 @@ const Card = ({ image, brand, price, title, id }) => {
         let item = e.target.closest(".section-p1");
         let id = item.dataset.id;
         let par = e.target.closest(".product-card");
-        if (par.offsetHeight == 450) {
+        if (par.offsetHeight === 450) {
 
             setProductId(id);
             window.scrollTo(0, 0);
@@ -104,15 +108,14 @@ const Card = ({ image, brand, price, title, id }) => {
         }
     }
 
-
     const fillSizes = async () => {
-        let data = await axiosService.getSizes(id);
+        // let data = await axiosService.getSizes(id);
         
-        for (const item of carts) {
-            data = data.filter(x => parseInt(x.size) !== item.size);
-        }
+        // for (const item of carts) {
+        //     data = data.filter(x => parseInt(x.size) !== item.size);
+        // }
 
-        setArrSizes(data);
+        // setArrSizes(productSizes);
     }
 
     const onSelectItem = (e) => {
@@ -155,7 +158,7 @@ const Card = ({ image, brand, price, title, id }) => {
                 onMouseLeave={onMouseHandler}
                 onClick={onLinkToProduct}>
                 <div className="image-container">
-                    <img src={image} alt="Product Image" />
+                    <img src={image} alt="Product"/>
                 </div>
                 
                 <div className="product-details">
@@ -186,7 +189,7 @@ const Card = ({ image, brand, price, title, id }) => {
                         }}
                         className={classNames("select", { "d-none": !settings.isFlag })} onClick={onSelectClick} onChange={onSelectItem}>
                         <option value={0}>Виберіть розмір</option>
-                        {sizes.map((element, index) => {
+                        {productSizes.map((element, index) => {
                             return (
                                 <option value={index + 1} key={"sizeCard" + (index + 1)}>{element.size}</option>
                             )

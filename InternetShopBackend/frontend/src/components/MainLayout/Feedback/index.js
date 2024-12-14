@@ -9,18 +9,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFeedback, setFeedback, updateFeedback } from '../../../redux/reducers/feedbackReducer';
 import axiosService from '../../../axios/axiosService';
 
-const Feedback = ({}) => {
+const Feedback = () => {
     const [text, setText] = useState("");
     const dispatch = useDispatch();
     const feedbacks = useSelector(feedback => feedback.feedback)
 
     const fillFeedbacks = async () => {
-        let res = await axiosService.getFeedback();
-        dispatch(setFeedback([...res.feedbacks]));
+        //let res = await axiosService.getFeedback();
+        dispatch(setFeedback([]));
     }
     useEffect(() => {
         fillFeedbacks();
-    },[]);
+    }, []);
 
     const responseGoogleSuccess = async (e) => {
         let obj = await axiosService.getUserInfo(e.access_token);
@@ -31,7 +31,7 @@ const Feedback = ({}) => {
         let message = text;
         let email = obj.email;
         
-        let isExist = await axiosService.isFeedback(email);
+        // let isExist = await axiosService.isFeedback(email);
 
         
         let currentDate = new Date();
@@ -50,14 +50,17 @@ const Feedback = ({}) => {
             email: email
         }
 
-        if(isExist) {
-            let res = await axiosService.updateFeedback(feedbackObject);
-            dispatch(updateFeedback(feedbackObject));
-        } else {
+        // if(isExist) {
+        //     // let res = await axiosService.updateFeedback(feedbackObject);
+        //     dispatch(updateFeedback(feedbackObject));
+        // } else {
 
-            let res = await axiosService.addFeedback(feedbackObject);
-            dispatch(addFeedback(feedbackObject));
-        }
+        //     // let res = await axiosService.addFeedback(feedbackObject);
+        //     dispatch(addFeedback(feedbackObject));
+        // }
+
+        dispatch(addFeedback(feedbackObject));
+
         googleLogout();
         setText("")
     }  

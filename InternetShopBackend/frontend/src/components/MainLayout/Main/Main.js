@@ -1,6 +1,3 @@
-
-
-
 import Card, { CardWA } from './Card';
 import React, { useEffect, useRef, useState } from "react";
 // Import Swiper React components
@@ -21,6 +18,7 @@ import { getSliderSize } from '../../../services/getSliderSize';
 import { useSelector } from 'react-redux';
 import { BACKEND_URL } from '../../../constants/default';
 import axiosService from '../../../axios/axiosService';
+import productsData from '../../../data/products.json';
 
 
 const Main = () => {
@@ -29,12 +27,12 @@ const Main = () => {
         marginTop: '20px'
     }
 
-    const products = useSelector(state => state.products);
+    const products = productsData;
     const [topItems, setTopItems] = useState([]);
 
     const setTopItem = async () => {
-        let item =  await axiosService.getTop();
-        setTopItems([...item]);
+        // let item =  await axiosService.getTop();
+        setTopItems([...productsData]);
     }
 
     useEffect(() => {
@@ -47,6 +45,8 @@ const Main = () => {
     const lgSize = 8;
     const lxSize = 8;
     const lxxSize = 6;
+
+    const serverLink = ''; //serverLink;
 
 
     const sliders = [
@@ -91,9 +91,11 @@ const Main = () => {
                     {products.map((element, index) => {
                         return (<Col key={index + "col-product"} md={mdSize} sm={smSize} xs={minSize} lg={lgSize} xl={lxSize} xxl={lxxSize}>
                             <Card title={element.title}
-                            id={element.id} 
+                            id={element.id}
+                            description={element.description}
+                            count={element.count}
                             brand={element.brand} 
-                            image={BACKEND_URL + "images/" + (element.images && element.images[0] ? element.images[0].image : "")} 
+                            image={serverLink + (element.images && element.images[0] ? element.images[0].image : "")} 
                             price={element.price} />
                         </Col>);
                     })}
@@ -120,7 +122,7 @@ const Main = () => {
                     {topItems.map((element, index) => {
                         return (<SwiperSlide key={"swiper" + index}>
                             <CardWA title={element.title} brand={element.brand} image={
-                                BACKEND_URL + "images/" + (element.images && element.images[0] ? element.images[0].image : "")
+                                serverLink + (element.images && element.images[0] ? element.images[0].image : "")
                             } price={element.price} id={element.id}/>
                         </SwiperSlide>);
                     })}

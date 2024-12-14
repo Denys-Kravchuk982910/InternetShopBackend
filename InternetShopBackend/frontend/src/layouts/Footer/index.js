@@ -13,7 +13,7 @@ const Footer = () => {
                         
                         <div className="">
                             
-                                <img src="Logo-nav.png"/>
+                                <img src="Logo-nav.png" alt=""/>
                                 <p className="inst-profile">
                                     @CrosShop
                                 </p>

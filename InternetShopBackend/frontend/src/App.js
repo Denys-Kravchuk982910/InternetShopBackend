@@ -9,16 +9,19 @@ import { BACKEND_URL } from './constants/default';
 import axiosService from './axios/axiosService';
 import { addToCart } from './redux/reducers/cartReducer';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+
+import productsData from '../src/data/products.json';
+
 // main; shop; cart; login; profile; detailed good
 const App = () => {
   
   var dispatch = useDispatch();
   const carts = useSelector(cart=> cart.cart);
   const getAllProducts = async () => {
-    let result = await axiosService.setProduct(0);
+    // let result = await axiosService.setProduct(0);
     dispatch(setProducts({
       type: "set_items",
-      payload: result.data
+      payload: productsData
     }));
   }
 
@@ -26,7 +29,7 @@ const App = () => {
     getAllProducts();
 
     let savedCarts= localStorage.getItem("cart") && JSON.parse(localStorage.getItem("cart"));
-    if(carts && carts.length == 0 && savedCarts && savedCarts.length > 0) 
+    if(carts && carts.length === 0 && savedCarts && savedCarts.length > 0) 
     {
       for(var i = 0; i < savedCarts.length; i++) {
         dispatch(addToCart(savedCarts[i]))
