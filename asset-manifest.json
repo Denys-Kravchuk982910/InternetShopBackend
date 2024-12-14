@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/InternetShopBackend/static/css/main.bf5b5656.css",
-    "main.js": "/InternetShopBackend/static/js/main.87921aee.js",
+    "main.js": "/InternetShopBackend/static/js/main.bd4c3426.js",
     "static/css/326.97ee9e95.chunk.css": "/InternetShopBackend/static/css/326.97ee9e95.chunk.css",
     "static/js/326.fc94bf9b.chunk.js": "/InternetShopBackend/static/js/326.fc94bf9b.chunk.js",
     "static/css/802.80c95681.chunk.css": "/InternetShopBackend/static/css/802.80c95681.chunk.css",
@@ -9,7 +9,7 @@
     "static/css/697.6a4edd46.chunk.css": "/InternetShopBackend/static/css/697.6a4edd46.chunk.css",
     "static/js/697.9599d8c9.chunk.js": "/InternetShopBackend/static/js/697.9599d8c9.chunk.js",
     "static/css/259.da3425e4.chunk.css": "/InternetShopBackend/static/css/259.da3425e4.chunk.css",
-    "static/js/259.dca35c10.chunk.js": "/InternetShopBackend/static/js/259.dca35c10.chunk.js",
+    "static/js/259.77a1c9bd.chunk.js": "/InternetShopBackend/static/js/259.77a1c9bd.chunk.js",
     "static/css/342.13a82b46.chunk.css": "/InternetShopBackend/static/css/342.13a82b46.chunk.css",
     "static/js/342.3fc22645.chunk.js": "/InternetShopBackend/static/js/342.3fc22645.chunk.js",
     "static/css/107.bb3e5f3f.chunk.css": "/InternetShopBackend/static/css/107.bb3e5f3f.chunk.css",
@@ -21,7 +21,7 @@
     "static/js/361.abac2691.chunk.js": "/InternetShopBackend/static/js/361.abac2691.chunk.js",
     "index.html": "/InternetShopBackend/index.html",
     "main.bf5b5656.css.map": "/InternetShopBackend/static/css/main.bf5b5656.css.map",
-    "main.87921aee.js.map": "/InternetShopBackend/static/js/main.87921aee.js.map",
+    "main.bd4c3426.js.map": "/InternetShopBackend/static/js/main.bd4c3426.js.map",
     "326.97ee9e95.chunk.css.map": "/InternetShopBackend/static/css/326.97ee9e95.chunk.css.map",
     "326.fc94bf9b.chunk.js.map": "/InternetShopBackend/static/js/326.fc94bf9b.chunk.js.map",
     "802.80c95681.chunk.css.map": "/InternetShopBackend/static/css/802.80c95681.chunk.css.map",
@@ -29,7 +29,7 @@
     "697.6a4edd46.chunk.css.map": "/InternetShopBackend/static/css/697.6a4edd46.chunk.css.map",
     "697.9599d8c9.chunk.js.map": "/InternetShopBackend/static/js/697.9599d8c9.chunk.js.map",
     "259.da3425e4.chunk.css.map": "/InternetShopBackend/static/css/259.da3425e4.chunk.css.map",
-    "259.dca35c10.chunk.js.map": "/InternetShopBackend/static/js/259.dca35c10.chunk.js.map",
+    "259.77a1c9bd.chunk.js.map": "/InternetShopBackend/static/js/259.77a1c9bd.chunk.js.map",
     "342.13a82b46.chunk.css.map": "/InternetShopBackend/static/css/342.13a82b46.chunk.css.map",
     "342.3fc22645.chunk.js.map": "/InternetShopBackend/static/js/342.3fc22645.chunk.js.map",
     "107.bb3e5f3f.chunk.css.map": "/InternetShopBackend/static/css/107.bb3e5f3f.chunk.css.map",
@@ -42,6 +42,6 @@
   },
   "entrypoints": [
     "static/css/main.bf5b5656.css",
-    "static/js/main.87921aee.js"
+    "static/js/main.bd4c3426.js"
   ]
 }
