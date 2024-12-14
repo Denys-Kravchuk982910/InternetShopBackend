@@ -20,7 +20,7 @@ To run the project, follow these steps:
 2. Navigate to the `InternetShopBackend` directory:
 
    ```bash
-   cd InternetShopBackend
+   cd InternetShopBackend/InternetShopBackend
    ```
 
 3. Start `docker-compose.yml` on port 5003:
